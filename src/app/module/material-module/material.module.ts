@@ -18,6 +18,8 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -44,6 +46,15 @@ import {MatTreeModule} from '@angular/material/tree';
     MatIconModule,
     MatButtonModule,
     LayoutModule,
-    MatTreeModule]
+    MatTreeModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatCheckboxModule,
+
+  ]
 })
 export class MaterialModule { }

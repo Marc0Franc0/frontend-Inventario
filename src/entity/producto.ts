@@ -7,8 +7,11 @@ export interface Producto{
 
    imagen_url:String;
 
+    cantidad_en_stock:number;
 
-    stock:boolean;
-
+  /*   marca:String;
+ */
     precio:number;
+
+   // Descripcion:String;
 }

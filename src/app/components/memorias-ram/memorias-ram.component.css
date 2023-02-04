@@ -4,6 +4,7 @@
   width: 250px;
   margin: 0;
 
+
   }
 
   .card-img-top {
@@ -18,7 +19,4 @@
   .botones{
 
      border: none;
-  }
-  .formularioProducto{
-    color: black;
   }
