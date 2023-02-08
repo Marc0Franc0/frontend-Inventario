@@ -1,240 +1,258 @@
+<div class="row">
 
 
-  <div class="row">
+  <div class="row  ">
 
-    <!--  <div class="col-12 ">
-       <div class="barranav2">
-
-         <ul class="nav nav-pills nav-fill">
-           <li class="nav-item">
-             <a type="button" class="btn " aria-current="page" (click)="irProductos()">Active</a>
-           </li>
-           <li class="nav-item">
-             <a class="nav-link" href="#">Much longer nav link</a>
-           </li>
-           <li class="nav-item">
-             <a class="nav-link" href="#">Link</a>
-           </li>
-
-         </ul>
-       </div>
-
-
-     </div> -->
-
-
-   <div class="row  " >
-
-     <div class="col-sm-2 mt-5  mx-auto" >
+    <div class="col-sm-2 mt-5  mx-auto">
 
       <div class="row mt">
         <div class="col text-center d-grid gap-2">
-          <button type="button" class="btn btn-lg btn-primary"  data-bs-toggle="modal" data-bs-target="#formularioProducto" >Crear producto</button>
+          <button type="button" class="btn btn-lg btn-primary" data-bs-toggle="modal"
+            data-bs-target="#formularioProducto">Crear producto</button>
 
 
+        </div>
       </div>
+
+      <div class="row mt-5">
+        <div class="col text-center d-grid gap-2 ">
+<a href="/" type="button" class="btn btn-lg btn-outline-light">Todos los productos
+
+</a> </div>
       </div>
       <div class="row mt-5">
         <div class="col text-center d-grid gap-2 ">
 
-        <button  type="button" (click)="irPlacasDeVideo()" class="btn btn-lg btn-outline-light">Placas de video</button>
+          <button type="button" (click)="irPlacasDeVideo()" class="btn btn-lg btn-outline-light">Placas de
+            video</button>
+
+        </div>
 
       </div>
+      <div class="row mt-5 ">
+        <div class="col text-center d-grid gap-2 ">
 
+          <button type="button" (click)="irProcesadores()" class="btn btn-lg btn-outline-light">Procesadores</button>
+
+        </div>
       </div>
-       <div class="row mt-5 ">
-         <div class="col text-center d-grid gap-2 ">
+      <div class="row mt-5">
+        <div class="col text-center d-grid gap-2">
 
-         <button  type="button" (click)="irProcesadores()" class="btn btn-lg btn-outline-light">Procesadores</button>
+          <button type="button" (click)="irMemoriasRam()" class="btn btn-lg btn-outline-light">Memorias Ram</button>
 
-       </div>
-       </div>
-       <div class="row mt-5">
-         <div class="col text-center d-grid gap-2">
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col text-center d-grid gap-2">
 
-         <button type="button" (click)="irMemoriasRam()" class="btn btn-lg btn-outline-light">Memorias Ram</button>
+          <button type="button" (click)="irMonitores()" class="btn btn-lg btn-outline-light ">Monitores</button>
 
-       </div>
-       </div>
-       <div class="row mt-5">
-         <div class="col text-center d-grid gap-2">
+        </div>
+      </div>
 
-         <button type="button" (click)="irMonitores()" class="btn btn-lg btn-outline-light ">Monitores</button>
+      <div class="row mt-5">
+        <div class="col text-center d-grid gap-2">
 
-       </div>
-       </div>
+          <button type="button" (click)="irTeclados()" class="btn btn-lg btn-outline-light ">Teclados</button>
 
-       <div class="row mt-5">
-         <div class="col text-center d-grid gap-2">
+        </div>
+      </div>
 
-         <button type="button" (click)="irTeclados()" class="btn btn-lg btn-outline-light ">Teclados</button>
-
-       </div>
-       </div>
-
-     </div>
-     <div class="col-10 mt-5 mx-auto">
+    </div>
+    <div class="col-10 mt-5 mx-auto">
       <div class="row mx-auto ">
 
-        <div class="col mt-2 "  *ngFor="let product of listaProductos" >
+        <div class="col mt-2 " *ngFor="let product of listaProductos">
 
-      <div class="card productos" >
-       <div class="card-body ">
+          <div class="card productos">
+            <div class="card-body ">
 
-      <img  src={{product.imagen_url}}  class="card-img-top"  >
+              <img src={{product.imagen_url}} class="card-img-top">
 
-              </div>
+            </div>
             <div class="card-body">
               <p style="font-size:x-large;"><strong>${{product.precio}}</strong></p>
               <p class="card-title">{{product.nombre}}</p>
 
-<!--
+              <!--
              <a routerLink="/compra" class="btn btn-primary">     Ver detalles      </a>
              <a routerLink="/productos" class="btn btn-primary">     Editar      </a> -->
 
-             <div class="row">
-              <div class="col">
-                <button class="botones btn btn-info" >
-                  Ver detalles
-            </button>
+              <div class="row">
+                <div class="col">
+                  <button class="botones btn btn-info">
+                    Ver detalles
+                  </button>
+                </div>
+
+                <div class="col-3">
+                  <button class="botones" (click)="inicializarProducto(product)" data-bs-toggle="modal"
+                    data-bs-target="#formularioEditar" data-bs-whatever="usuario.id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                      class="bi bi-pencil" viewBox="0 0 16 16">
+                      <path
+                        d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                    </svg>
+
+                  </button>
+                </div>
+                <div class="col-3">
+
+                  <button class="botones" (click)="eliminarProducto(product.id)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                      class="bi bi-trash3" viewBox="0 0 16 16">
+                      <path
+                        d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                    </svg>
+                  </button>
+                </div>
+
+
               </div>
-
-              <div class="col-3">
-                <button class="botones"  (click)="inicializarProducto(product)" data-bs-toggle="modal" data-bs-target="#formularioEditar" data-bs-whatever="usuario.id" >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                  </svg>
-
-            </button>
-              </div>
-              <div class="col-3">
-
-            <button class="botones" (click)="eliminarProducto(product.id)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-              </svg>
-            </button>
-              </div>
-
-
-             </div>
 
 
             </div>
           </div>
 
-          </div>
-
-
         </div>
-     </div>
-   </div>
 
 
-   <div class="modal fade formularioProducto" id="formularioProducto" tabindex="-1" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title" id="exampleModalLabel">Nuevo producto</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <form (ngSubmit)="crearProducto()">
+    </div>
+  </div>
 
 
-          <div class="mb-3">
-            <input type="text" class="form-control" required [(ngModel)]="this.producto.nombre" name="nombre" matInput
-              placeholder="Nombre de producto">
-          </div>
-          <!--     <div class="mb-3">
+  <div class="modal fade formularioProducto" id="formularioProducto" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLabel">Nuevo producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <select class="form-select" aria-label="Default select example"
+            [(ngModel)]="opcionSeleccionado" (change)="capturar()">
+            <option selected>Seleccione una categoría</option>
+              <option *ngFor="let categoria of listaCategorias">
+                {{categoria.nombre}}
+              </option>
+            </select>
+
+          <form (ngSubmit)="crearProducto()">
+
+
+            <div class="mb-3 mt-3">
+              <input type="text" class="form-control" required [(ngModel)]="this.producto.nombre" name="nombre" matInput
+                placeholder="Nombre de producto">
+            </div>
+            <!--     <div class="mb-3">
             <input type="text" class="form-control" required [(ngModel)]="producto.marca"
               name="nombre marca" matInput placeholder="Nombre de marca">
           </div> -->
 
-          <div class="mb-3">
-            <input type="text" class="form-control" required [(ngModel)]="producto.imagen_url" name="url imagen"
-              matInput placeholder="Url de imagen">
-          </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" required [(ngModel)]="producto.imagen_url" name="url imagen"
+                matInput placeholder="Url de imagen">
+            </div>
 
-          <div class="mb-3">
-            Precio
-            <input type="number" class="form-control" required [(ngModel)]="producto.precio" name="precio" matInput>
-          </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">$</span>
+              <span class="input-group-text">0.00</span>
+              <input type="text" class="form-control" required [(ngModel)]="producto.precio" name="precio"
+              placeholder="Valor de venta" aria-label="Dollar amount (with dot and two decimal places)">
+            </div>
+            <div class="mb-3">
 
-          <div class="mb-3">
-            Cantidad en stock
-            <input type="number" class="form-control" required [(ngModel)]="producto.cantidad_en_stock" name="stock"
-              matInput>
-          </div>
-          <!-- <div class="mb-3">
+              <input type="" class="form-control" required [(ngModel)]="producto.cantidad_en_stock" name="stock"
+              placeholder="Cantidad en stock"  matInput>
+            </div>
+            <!-- <div class="mb-3">
 
 
             <textarea class="form-control inputs" id="message-text" required
               [(ngModel)]="producto.marca" name="descripcion" matInput
               placeholder="Comentario"></textarea>
           </div> -->
-          <button class="btn botones ">Enviar</button>
-        </form>
-      </div>
+            <button class="btn botones ">Enviar</button>
+          </form>
+        </div>
 
+      </div>
     </div>
   </div>
-</div>
 
 
 
-<div class="modal fade formularioProducto" id="formularioEditar" tabindex="-1" data-bs-whatever="" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title" id="exampleModalLabel">Editar producto</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form (ngSubmit)="editarProducto()">
+  <div class="modal fade formularioProducto" id="formularioEditar" tabindex="-1" data-bs-whatever=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLabel">Editar producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
 
-          <div class="mb-3">
-            ID
-            <input type="number" class="form-control" [disabled]=true value={{productoEditar.id}}  required [(ngModel)]="this.productoEditar.id" name="id" matInput
-             >
-          </div>
-          <div class="mb-3">
-            <input type="text" class="form-control" required [(ngModel)]="this.productoEditar.nombre" name="nombre" matInput
-              placeholder="Nombre de producto">
-          </div>
-          <!--     <div class="mb-3">
+
+
+            <select class="form-select" aria-label="Default select example"
+            [(ngModel)]="opcionSeleccionado" (change)="capturar()">
+            <option selected>Seleccione una categoría</option>
+              <option *ngFor="let categoria of listaCategorias">
+                {{categoria.nombre}}
+              </option>
+            </select>
+
+
+
+          <form (ngSubmit)="editarProducto()">
+
+            <div class="mb-3 mt-3">
+              ID
+              <input type="number" class="form-control" [disabled]=true value={{productoEditar.id}} required
+                [(ngModel)]="this.productoEditar.id" name="id" matInput>
+            </div>
+
+
+            <div class="mb-3">
+              <input type="text" class="form-control" required [(ngModel)]="this.productoEditar.nombre" name="nombre"
+                matInput placeholder="Nombre de producto">
+            </div>
+            <!--     <div class="mb-3">
             <input type="text" class="form-control" required [(ngModel)]="producto.marca"
               name="nombre marca" matInput placeholder="Nombre de marca">
           </div> -->
 
-          <div class="mb-3">
-            <input type="text" class="form-control" required [(ngModel)]="productoEditar.imagen_url" name="url imagen"
-              matInput placeholder="Url de imagen">
-          </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" required [(ngModel)]="productoEditar.imagen_url" name="url imagen"
+                matInput placeholder="Url de imagen">
+            </div>
 
-          <div class="mb-3">
-            Precio
-            <input type="number" class="form-control" required [(ngModel)]="productoEditar.precio" name="precio" matInput>
-          </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">$</span>
+              <span class="input-group-text">{{productoEditar.precio}}</span>
+              <input type="text" class="form-control" required [(ngModel)]="producto.precio" name="precio"
+              placeholder="Valor de venta" aria-label="Dollar amount (with dot and two decimal places)">
+            </div>
 
-          <div class="mb-3">
-            Cantidad en stock
-            <input type="number" class="form-control" required [(ngModel)]="productoEditar.cantidad_en_stock" name="stock"
-              matInput>
-          </div>
-          <!-- <div class="mb-3">
+            <div class="mb-3">
+
+              <input type="" class="form-control" required [(ngModel)]="productoEditar.cantidad_en_stock"
+                name="stock" placeholder="Cantidad en stock" matInput>
+            </div>
+            <!-- <div class="mb-3">
 
 
             <textarea class="form-control inputs" id="message-text" required
               [(ngModel)]="producto.marca" name="descripcion" matInput
               placeholder="Comentario"></textarea>
           </div> -->
-          <button class="btn botones ">Guardar</button>
-        </form>
-      </div>
+            <button class="btn botones ">Guardar</button>
+          </form>
+        </div>
 
+      </div>
     </div>
   </div>
-</div>

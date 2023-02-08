@@ -20,23 +20,12 @@ import {
 })
 export class AppComponent {
   constructor(private api: ApiService, private router: Router) {}
-  productos: Producto[] | undefined;
-  categorias: Categoria[] | undefined;
-producto:Producto={
-  "id":0,
-  "nombre":"",
 
-  "imagen_url":"",
-  "precio":0,
-  "cantidad_en_stock":0
-}
 
-  ngOnInit() {
+  ngOnInit(){
 
   }
-   irProductos() {
-    this.router.navigate(['productos']);
-  }
+
 
 }
 

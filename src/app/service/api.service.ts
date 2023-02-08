@@ -18,6 +18,12 @@ export class ApiService {
     return this.http.get<Producto[]>(this.pathProductos + `/obtenertodos`);
   }
 
+  public obtenerListaCategorias( ): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(this.pathCategoria + `/obtenertodas`
+
+    );
+  }
+
   public obtenerCategoria(name: string): Observable<Categoria> {
     return this.http.get<Categoria>(this.pathCategoria + `/obtenercategoria`, {
       params: {
@@ -32,14 +38,14 @@ export class ApiService {
     });
   }
 
-  public crearProducto(producto: Producto):Observable<String> {
-    return this.http.post(`${this.pathProductos}/agregarnuevo`, producto,{
+  public crearProducto(producto: Producto, categoria:string):Observable<String> {
+    return this.http.post(`${this.pathProductos}/agregarnuevo/`+categoria, producto,{
       responseType: 'text',
     } );
   }
 
-  public editarProducto(id:number,producto: Producto):Observable<String> {
-    return this.http.put(`${this.pathProductos}/editarexistente/`+id, producto,{
+  public editarProducto(id:number,producto: Producto,cat:string):Observable<String> {
+    return this.http.put(`${this.pathProductos}/editarexistente/`+id+"/"+cat, producto,{
       responseType: 'text',
     } );
   }
