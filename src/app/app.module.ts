@@ -6,22 +6,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './module/material-module/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductosComponent } from './components/productos/productos.component';
-import { ProcesadoresComponent } from './components/procesadores/procesadores.component';
-import { MemoriasRamComponent } from './components/memorias-ram/memorias-ram.component';
-import { MonitoresComponent } from './components/monitores/monitores.component';
-import { PlacasDeVideoComponent } from './components/placas-de-video/placas-de-video.component';
-import { TecladosComponent } from './components/teclados/teclados.component';
 import { FormsModule } from '@angular/forms';
-
+import { BotonesLateralesComponent } from './botones-laterales/botones-laterales.component';
 @NgModule({
   declarations: [
     AppComponent,
     ProductosComponent,
-    ProcesadoresComponent,
-    MemoriasRamComponent,
-    MonitoresComponent,
-    PlacasDeVideoComponent,
-    TecladosComponent,
+    BotonesLateralesComponent,
 
   ],
   imports: [
