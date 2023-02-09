@@ -7,12 +7,12 @@ import { MaterialModule } from './module/material-module/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductosComponent } from './components/productos/productos.component';
 import { FormsModule } from '@angular/forms';
-import { BotonesLateralesComponent } from './botones-laterales/botones-laterales.component';
+import { LoginComponent } from './components/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
     ProductosComponent,
-    BotonesLateralesComponent,
+    LoginComponent,
 
   ],
   imports: [

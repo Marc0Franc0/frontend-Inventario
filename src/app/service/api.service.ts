@@ -9,10 +9,11 @@ import { Producto } from 'src/entity/producto';
 })
 export class ApiService {
   constructor(private http: HttpClient) {}
-  pathProductos: string = 'http://localhost:8080/productos';
-  pathPersonas: string = 'http://localhost:8080/personas';
-  pathCarritos: string = 'http://localhost:8080/carritos';
-  pathCategoria: string = 'http://localhost:8080/categorias';
+  hostService:string = 'https://backend-inventarioapp-service.onrender.com';
+  pathProductos: string = this.hostService+'/productos';
+  pathPersonas: string = this.hostService+'/personas';
+  pathCarritos: string = this.hostService+'/carritos';
+  pathCategoria: string = this.hostService+'/categorias';
 
   public obtenerListaProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.pathProductos + `/obtenertodos`);
