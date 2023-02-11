@@ -8,11 +8,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductosComponent } from './components/productos/productos.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HomeComponent } from './components/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
     ProductosComponent,
     LoginComponent,
+    NavbarComponent,
+    HomeComponent,
 
   ],
   imports: [

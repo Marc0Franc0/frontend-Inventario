@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Categoria } from 'src/entity/Categoria';
 import { Producto } from 'src/entity/producto';
+import { Marca } from 'src/entity/Marca';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +12,8 @@ export class ApiService {
   constructor(private http: HttpClient) {}
   hostService:string = 'https://backend-inventarioapp-service.onrender.com';
   pathProductos: string = this.hostService+'/productos';
-  pathPersonas: string = this.hostService+'/personas';
-  pathCarritos: string = this.hostService+'/carritos';
   pathCategoria: string = this.hostService+'/categorias';
+  pathMarcas: string = this.hostService+'/marcas';
 
   public obtenerListaProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.pathProductos + `/obtenertodos`);
@@ -21,6 +21,12 @@ export class ApiService {
 
   public obtenerListaCategorias( ): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(this.pathCategoria + `/obtenertodas`
+
+    );
+  }
+
+  public obtenerListaMarcas( ): Observable<Marca[]> {
+    return this.http.get<Marca[]>(this.pathMarcas + `/obtenertodas`
 
     );
   }
@@ -39,14 +45,14 @@ export class ApiService {
     });
   }
 
-  public crearProducto(producto: Producto, categoria:string):Observable<String> {
-    return this.http.post(`${this.pathProductos}/agregarnuevo/`+categoria, producto,{
+  public crearProducto(producto: Producto):Observable<String> {
+    return this.http.post(`${this.pathProductos}/agregarnuevo`,producto,{
       responseType: 'text',
     } );
   }
 
-  public editarProducto(id:number,producto: Producto,cat:string):Observable<String> {
-    return this.http.put(`${this.pathProductos}/editarexistente/`+id+"/"+cat, producto,{
+  public editarProducto(id:number,producto: Producto):Observable<String> {
+    return this.http.put(`${this.pathProductos}/editarexistente/`+id ,producto,{
       responseType: 'text',
     } );
   }

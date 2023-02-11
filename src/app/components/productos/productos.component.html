@@ -16,7 +16,7 @@
 
       <div class="row mt-5">
         <div class="col text-center d-grid gap-2 ">
-<a href="/" type="button" class="btn btn-lg btn-outline-light">Todos los productos
+<a  type="button" class="btn btn-lg btn-outline-light">Todos los productos
 
 </a> </div>
       </div>
@@ -140,6 +140,13 @@
               </option>
             </select>
 
+            <select class="form-select mt-3" aria-label="Default select example"
+            [(ngModel)]="MarcaElegida" (change)="capturarMarca()">
+            <option selected>Seleccione una marca</option>
+              <option *ngFor="let marca of listaMarcas">
+                {{marca.nombre}}
+              </option>
+            </select>
           <form (ngSubmit)="crearProducto()">
 
 
@@ -147,10 +154,6 @@
               <input type="text" class="form-control" required [(ngModel)]="this.producto.nombre" name="nombre" matInput
                 placeholder="Nombre de producto">
             </div>
-            <!--     <div class="mb-3">
-            <input type="text" class="form-control" required [(ngModel)]="producto.marca"
-              name="nombre marca" matInput placeholder="Nombre de marca">
-          </div> -->
 
             <div class="mb-3">
               <input type="text" class="form-control" required [(ngModel)]="producto.imagen_url" name="url imagen"
@@ -205,7 +208,13 @@
               </option>
             </select>
 
-
+            <select class="form-select mt-3" aria-label="Default select example"
+            [(ngModel)]="MarcaElegida" (change)="capturarMarca()">
+            <option selected>Seleccione una marca</option>
+              <option *ngFor="let marca of listaMarcas">
+                {{marca.nombre}}
+              </option>
+            </select>
 
           <form (ngSubmit)="editarProducto()">
 
@@ -220,10 +229,7 @@
               <input type="text" class="form-control" required [(ngModel)]="this.productoEditar.nombre" name="nombre"
                 matInput placeholder="Nombre de producto">
             </div>
-            <!--     <div class="mb-3">
-            <input type="text" class="form-control" required [(ngModel)]="producto.marca"
-              name="nombre marca" matInput placeholder="Nombre de marca">
-          </div> -->
+
 
             <div class="mb-3">
               <input type="text" class="form-control" required [(ngModel)]="productoEditar.imagen_url" name="url imagen"
