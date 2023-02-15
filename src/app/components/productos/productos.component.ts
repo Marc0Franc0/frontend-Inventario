@@ -21,14 +21,14 @@ export class ProductosComponent  {
   //Siguientes dos variables utilizadas en el select de marca
   MarcaElegida: string = '0';
   verMarcaElegida: string = '';
+  //Listas para almacenar todas las categorias,marcas y productos del servidor
   listaCategorias: Categoria[] | undefined;
   listaMarcas: Marca[] | undefined;
   listaProductos: Producto[] | undefined ;
+  //Se utiliza para mapear una sola cateogria y asi obtener la lista de productos de esa categoria mapeada
   categoria: Categoria | undefined;
-username:string='';
-password:string='';
 
-
+//Siguientes dos métodos utilizados para la seleccion de categorias y marcas
   capturar() {
     // Pasamos el valor seleccionado a la variable verSeleccion
     this.verSeleccion = this.opcionSeleccionado;
@@ -49,6 +49,7 @@ password:string='';
     marca: '',
     categoria:'',
   };
+
   productoEditar: Producto = {
     id: 0,
     nombre: '',
@@ -63,13 +64,13 @@ password:string='';
   constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit() {
-
-    this.api.obtenerListaProductos().subscribe((rta) => {
-     console.log(rta)
-    });
     //Inicializo la lista de productos almacenadas en la base de datos
+    this.api.obtenerListaProductos().subscribe(rta => {
+    this.listaProductos=rta;
+    console.log(rta);
+    });
 
-    console.log(this.listaProductos);
+
     //Inicializo la lista de categorias almacenadas en la base de datos
     this.api.obtenerListaCategorias().subscribe((rta) => {
       this.listaCategorias = rta;
@@ -87,12 +88,15 @@ password:string='';
     this.api.obtenerListaProductos().subscribe(rta=>{console.log(rta)});
   }
  */
-/*  irAtodos() {
+
+
+  //Botones para navegar entre las diferentes categorías
+ irAtodos() {
     this.api.obtenerListaProductos().subscribe((rta) => {
       this.listaProductos = rta;
     });
   }
-*/
+
   irProcesadores() {
     this.api.obtenerCategoria('Procesadores').subscribe((rta) => {
       this.categoria = rta;
@@ -130,6 +134,8 @@ password:string='';
       location.reload();
     });
   }
+
+  //Botones para la creacion y edición de un producto
   crearProducto() {
     this.producto.marca = this.verSeleccion;
     this.producto.categoria = this.verMarcaElegida;
@@ -148,6 +154,9 @@ password:string='';
         location.reload();
       });
   }
+  /*Metodo para darle valor al producto que se utiliza en el formulario para editar, los valores son los que tiene
+  el producto seleccionado para editar
+  */
   inicializarProducto(productoAlmacenado: Producto) {
     this.productoEditar.id = productoAlmacenado.id;
     this.productoEditar.nombre = productoAlmacenado.nombre;

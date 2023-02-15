@@ -13,6 +13,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private api:ApiService) {}
 
+  /*Se consutla si el token existe para analizar con un condicional la situacion de existencia o no.
+  En caso de existir se agrega en todas las peticiones http al servidor un header de autorizacion con el token
+   */
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
 

@@ -14,30 +14,36 @@ import { Credentials } from 'src/entity/Credentials';
 export class ApiService {
   constructor(private http: HttpClient,private jwtHelper: JwtHelperService) {}
   hostService: string = 'https://backend-inventarioapp-service.onrender.com';
-  pathProductos: string = this.hostService + '/productos';
-  pathCategoria: string = this.hostService + '/categorias';
-  pathMarcas: string = this.hostService + '/marcas';
+  pathProductos: string = this.hostService + '/api/productos';
+  pathCategoria: string = this.hostService + '/api/categorias';
+  pathMarcas: string = this.hostService + '/api/marcas';
  username:string ='';
  password:string='';
 
 login(creds:Credentials):any{
 
-    return this.http.post("http://localhost:8080/api/v1/auth/authenticate",creds);
+    return this.http.post(this.hostService+"/api/v1/auth/authenticate",creds);
 }
 
+//Se interpeta si el token existe o si esta expirado retornando false si este expiro o no existe
 isAuth():boolean{
   const token = localStorage.getItem('Token');
-
-  //Se interpeta si el token existe o si esta expirado
   if(this.jwtHelper.isTokenExpired(token) || !localStorage.getItem('Token')){
     return false;
   }
   return true
 }
-  public obtenerListaProductos() {
 
- return this.http.get("http://localhost:8080/api/v1/demo-controller");
+//Obtencion del token guardado en localStorage-----------------------------------------
+getToken(){
+  return localStorage.getItem('Token')
+}
 
+
+//Consultas al servidor-----------------------------------------------
+  public obtenerListaProductos():Observable<Producto[]> {
+
+ return this.http.get<Producto[]>(this.hostService+"/obtenertodos");
 
   }
 
@@ -80,9 +86,6 @@ isAuth():boolean{
   }
 
 
-  getToken(){
-    return localStorage.getItem('Token')
-  }
 
 
 }
