@@ -1,3 +1,5 @@
+
+import { AuthGuard } from './../../guards/auth.guard';
 import { HomeComponent } from './../../components/home/home.component';
 import { LoginComponent } from './../../components/login/login.component';
 
@@ -6,9 +8,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path:'', component:HomeComponent},
+  {
+    //Esta ruta es protegida en caso de no existir un token o estar expirado utilizando el guard AuthGuard
+    path:'home', component:HomeComponent,canActivate:[AuthGuard]},
   { path: 'productos', component: ProductosComponent},
-  { path: 'login', component: LoginComponent}
+  { path: '', component: LoginComponent}
 
 ];
 
