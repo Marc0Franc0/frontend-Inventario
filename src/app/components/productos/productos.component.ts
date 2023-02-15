@@ -1,29 +1,34 @@
+import { LoginComponent } from './../login/login.component';
 import { Marca } from './../../../entity/Marca';
 import { Observable } from 'rxjs';
 import { Categoria } from './../../../entity/Categoria';
 import { ApiService } from './../../service/api.service';
-import { Component } from '@angular/core';
+import { AfterViewInit,ViewChild, Component, Input } from '@angular/core';
 import { Producto } from 'src/entity/producto';
 import { Router } from '@angular/router';
+import { Credentials } from 'src/entity/Credentials';
 
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
   styleUrls: ['./productos.component.css'],
 })
-export class ProductosComponent {
-  listaProductos: Producto[] | undefined;
+export class ProductosComponent  {
+
   //Siguientes dos variables utilizadas en el select de categoria
   opcionSeleccionado: string = '0';
   verSeleccion: string = '';
   //Siguientes dos variables utilizadas en el select de marca
   MarcaElegida: string = '0';
   verMarcaElegida: string = '';
-
   listaCategorias: Categoria[] | undefined;
   listaMarcas: Marca[] | undefined;
-
+  listaProductos: Producto[] | undefined ;
   categoria: Categoria | undefined;
+username:string='';
+password:string='';
+
+
   capturar() {
     // Pasamos el valor seleccionado a la variable verSeleccion
     this.verSeleccion = this.opcionSeleccionado;
@@ -58,11 +63,13 @@ export class ProductosComponent {
   constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit() {
-    //Inicializo la lista de productos almacenadas en la base de datos
-    this.api.obtenerListaProductos().subscribe((rta) => {
-      this.listaProductos = rta;
-    });
 
+    this.api.obtenerListaProductos().subscribe((rta) => {
+     console.log(rta)
+    });
+    //Inicializo la lista de productos almacenadas en la base de datos
+
+    console.log(this.listaProductos);
     //Inicializo la lista de categorias almacenadas en la base de datos
     this.api.obtenerListaCategorias().subscribe((rta) => {
       this.listaCategorias = rta;
@@ -80,12 +87,12 @@ export class ProductosComponent {
     this.api.obtenerListaProductos().subscribe(rta=>{console.log(rta)});
   }
  */
-  irAtodos() {
+/*  irAtodos() {
     this.api.obtenerListaProductos().subscribe((rta) => {
       this.listaProductos = rta;
     });
   }
-
+*/
   irProcesadores() {
     this.api.obtenerCategoria('Procesadores').subscribe((rta) => {
       this.categoria = rta;
