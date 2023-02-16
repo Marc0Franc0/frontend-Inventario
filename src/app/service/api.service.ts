@@ -62,6 +62,18 @@ export class ApiService {
   public crearCategoria(categoria:Categoria){
 return this.http.post(`${this.pathCategorias}/agregarnueva`,categoria,{responseType:'text'});
   }
+  public editarCategoria(id:number,categoria: Categoria):Observable<String> {
+    return this.http.put(`${this.pathCategorias}/editarexistente/`+id ,categoria,{
+      responseType: 'text',
+    } );
+  }
+  public eliminarCategoria(id: number) {
+    return this.http.delete(`${this.pathCategorias}/eliminarcategoria/` + id, {
+      responseType: 'text',
+    });
+  }
+
+
 public crearMarca(marca:Marca){
 
   return this.http.post(`${this.pathMarcas}/agregarnueva`,marca,{responseType:'text'});

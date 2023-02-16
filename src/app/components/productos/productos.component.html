@@ -1,42 +1,51 @@
 <div class="row">
 
 
-  <div class="row  ">
-
-    <div class="col-sm-2 mt-5  mx-auto">
+  <div class="row mx-auto mt-2 ">
+    <div class="btn-group" role="group" aria-label="Basic outlined example">
+      <button type="button" class="btn  btn-secondary" data-bs-toggle="modal"
+            data-bs-target="#formularioProducto">Crear Producto</button>
+            <button type="button" class="btn  btn-primary" data-bs-toggle="modal"
+            data-bs-target="#formularioCategoria">Crear Categoría</button>
+            <button type="button" class="btn  btn-secondary" data-bs-toggle="modal"
+            data-bs-target="#formularioMarca">Crear Marca</button>
+    </div>
+    <div class="col-sm-2 mt-4  mx-auto">
 
       <div class="row mt">
-        <div class="col text-center d-grid gap-2">
-          <button type="button" class="btn btn-lg btn-primary" data-bs-toggle="modal"
-            data-bs-target="#formularioProducto">Crear Producto</button>
-
-
-        </div>
-      </div>
-
-      <div class="row mt-3">
-        <div class="col text-center d-grid gap-2">
-          <button type="button" class="btn btn-lg btn-primary" data-bs-toggle="modal"
-            data-bs-target="#formularioCategoria">Crear Categoría</button>
-        </div>
-      </div>
-
-      <div class="row mt-3">
-        <div class="col text-center d-grid gap-2">
-          <button type="button" class="btn btn-lg btn-primary" data-bs-toggle="modal"
-            data-bs-target="#formularioMarca">Crear Marca</button>
-        </div>
-      </div>
-      <div class="row mt-5">
         <div class="col text-center d-grid gap-2 ">
 <a  type="button" class="btn btn-lg btn-outline-light">Todos los productos
+
+</a> </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col text-center d-grid gap-2 ">
+<a  type="button" class="btn btn-lg btn-outline-light">Todas las marcas
 
 </a> </div>
       </div>
       <div class="row">
         <div class="col text-center d-grid gap-2 mt-4" *ngFor="let categ of this.listaCategorias">
 
-          <button type="button" (click)="irAcategoria(categ.nombre)" class="btn btn-lg btn-outline-light">{{categ.nombre}}</button>
+
+          <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+            <button type="button" (click)="irAcategoria(categ.nombre)" class="btn btn-lg btn-outline-light">{{categ.nombre}}</button>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" type="button" data-bs-toggle="modal"
+                  data-bs-target="#formularioEditarCateg" (click)="inicializarCategoria(categ)">Editar</a></li>
+                <li><a class="dropdown-item" type="button" (click)="eliminarCategoria(categ.id)">Eliminar</a></li>
+              </ul>
+            </div>
+          </div>
+
+
+
 
         </div>
 
@@ -44,7 +53,7 @@
 
 
     </div>
-    <div class="col-10 mt-5 mx-auto">
+    <div class="col-10 mt-4 mx-auto">
       <div class="row mx-auto ">
 
         <div class="col mt-2 " *ngFor="let product of this.listaProductos">
@@ -65,7 +74,7 @@
 
               <div class="row">
                 <div class="col">
-                  <button class="botones btn btn-info">
+                  <button class="botones btn btn-secondary">
                     Ver detalles
                   </button>
                 </div>
@@ -171,7 +180,7 @@
   </div>
 
 
-<!--Modal para la edicio de un producto-->
+<!--Modal para la edicion de un producto-->
   <div class="modal fade formularioProducto" id="formularioEditar" tabindex="-1" data-bs-whatever=""
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -282,7 +291,41 @@
   </div>
 </div>
 
-<!--Modal par ala creacion de una nueva marca-->
+<!--Modal para la edicion de una categoria-->
+<div class="modal fade formularioProducto" id="formularioEditarCateg" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Editar categoría</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form (ngSubmit)="editarCategoria()">
+
+
+          <div class="mb-3 mt-3">
+            <input type="text" class="form-control" required [(ngModel)]="this.categoriaEditar.nombre" name="nombreCategoria" matInput
+            placeholder="Nombre de categoria">
+          </div>
+
+          <!-- <div class="mb-3">
+
+
+          <textarea class="form-control inputs" id="message-text" required
+            [(ngModel)]="producto.marca" name="descripcion" matInput
+            placeholder="Comentario"></textarea>
+        </div> -->
+          <button class="btn botones ">Enviar</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!--Modal par a la creacion de una nueva marca-->
 <div class="modal fade formularioProducto" id="formularioMarca" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">

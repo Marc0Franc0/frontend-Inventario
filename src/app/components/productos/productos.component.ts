@@ -1,9 +1,8 @@
-
 import { Marca } from './../../../entity/Marca';
 import { Observable } from 'rxjs';
 import { Categoria } from './../../../entity/Categoria';
 import { ApiService } from './../../service/api.service';
-import { AfterViewInit,ViewChild, Component, Input } from '@angular/core';
+import { AfterViewInit, ViewChild, Component, Input } from '@angular/core';
 import { Producto } from 'src/entity/producto';
 import { Router } from '@angular/router';
 import { Credentials } from 'src/entity/Credentials';
@@ -13,8 +12,7 @@ import { Credentials } from 'src/entity/Credentials';
   templateUrl: './productos.component.html',
   styleUrls: ['./productos.component.css'],
 })
-export class ProductosComponent  {
-
+export class ProductosComponent {
   //Siguientes dos variables utilizadas en el select de categoria
   opcionSeleccionado: string = '0';
   verSeleccion: string = '';
@@ -24,11 +22,11 @@ export class ProductosComponent  {
   //Listas para almacenar todas las categorias,marcas y productos del servidor
   listaCategorias: Categoria[] | undefined;
   listaMarcas: Marca[] | undefined;
-  listaProductos: Producto[] | undefined ;
+  listaProductos: Producto[] | undefined;
   //Se utiliza para mapear una sola cateogria y asi obtener la lista de productos de esa categoria mapeada
   categoriaNavegar: Categoria | undefined;
 
-//Siguientes dos métodos utilizados para la seleccion de categorias y marcas
+  //Siguientes dos métodos utilizados para la seleccion de categorias y marcas
   capturar() {
     // Pasamos el valor seleccionado a la variable verSeleccion
     this.verSeleccion = this.opcionSeleccionado;
@@ -38,7 +36,7 @@ export class ProductosComponent  {
     // Pasamos el valor seleccionado a la variable verSeleccion
     this.verSeleccion = this.opcionSeleccionado;
   }
-
+ //Utilizada para crear un nuevo producto
   producto: Producto = {
     id: 0,
     nombre: '',
@@ -47,9 +45,9 @@ export class ProductosComponent  {
     precio: 0,
     cantidad_en_stock: 0,
     marca: '',
-    categoria:'',
+    categoria: '',
   };
-
+//Utilizada para editar un producto
   productoEditar: Producto = {
     id: 0,
     nombre: '',
@@ -60,26 +58,35 @@ export class ProductosComponent  {
     marca: '',
     categoria: '',
   };
+
   //Utilizada para crear una nueva categoria
-  categoriaCrear:Categoria={
-id:0,
-nombre:'',
-productos:[]
+  categoriaCrear: Categoria = {
+    id: 0,
+    nombre: '',
+    productos: [],
   };
-  marcaCrear:Categoria={
-    id:0,
-    nombre:'',
-    productos:[]
-      };
+   //Utilizada para editar una categoria
+  categoriaEditar: Categoria = {
+    id: 0,
+    nombre: '',
+   productos:[]
+  };
+ //Utilizada para crear una nueva marca
+  marcaCrear: Categoria = {
+    id: 0,
+    nombre: '',
+    productos: [],
+  };
+
+
   constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit() {
     //Inicializo la lista de productos almacenadas en la base de datos
-    this.api.obtenerListaProductos().subscribe(rta => {
-    this.listaProductos=rta;
-    console.log(rta);
+    this.api.obtenerListaProductos().subscribe((rta) => {
+      this.listaProductos = rta;
+      console.log(rta);
     });
-
 
     //Inicializo la lista de categorias almacenadas en la base de datos
     this.api.obtenerListaCategorias().subscribe((rta) => {
@@ -94,35 +101,21 @@ productos:[]
     });
   }
 
-  /*  obtenerListaProductos(){
-    this.api.obtenerListaProductos().subscribe(rta=>{console.log(rta)});
-  }
- */
-
-
-  //Botones para navegar entre las diferentes categorías
+  //Métodos para navegar entre las diferentes categorías
   irAtodos() {
     this.api.obtenerListaProductos().subscribe((rta) => {
       this.listaProductos = rta;
     });
   }
-  irAcategoria(categoria:string){
+  irAcategoria(categoria: string) {
     this.api.obtenerCategoria(categoria).subscribe((rta) => {
       this.categoriaNavegar = rta;
       console.log(this.categoriaNavegar);
       this.listaProductos = this.categoriaNavegar.productos;
     });
-
   }
 
-
-
-
-
-
-
-
-  //Botones para la creacion , edición y eliminacion de un producto
+  //Metodos para la creacion , edición y eliminacion de un producto
   crearProducto() {
     this.producto.marca = this.verSeleccion;
     this.producto.categoria = this.verMarcaElegida;
@@ -133,7 +126,7 @@ productos:[]
   }
   editarProducto() {
     this.productoEditar.categoria = this.verSeleccion;
-    this.productoEditar.marca= this.verMarcaElegida;
+    this.productoEditar.marca = this.verMarcaElegida;
     this.api
       .editarProducto(this.productoEditar.id, this.productoEditar)
       .subscribe((data) => {
@@ -161,21 +154,40 @@ productos:[]
     this.productoEditar.categoria = productoAlmacenado.categoria;
   }
 
-  crearCategoria(){
-
-this.api.crearCategoria(this.categoriaCrear).subscribe(rta=>{
-
-  alert(rta);
-  location.reload();
-});
-  }
-
-  crearMarca(){
-
-    this.api.crearMarca(this.marcaCrear).subscribe(rta=>{
-
+  //Botones para la creacion, edicion y eliminacion de una categoría
+  crearCategoria() {
+    this.api.crearCategoria(this.categoriaCrear).subscribe((rta) => {
       alert(rta);
       location.reload();
     });
-      }
+  }
+
+  eliminarCategoria(id: number) {
+    this.api.eliminarCategoria(id).subscribe((rta) => {
+      alert(rta);
+      location.reload();
+    });
+  }
+
+  editarCategoria() {
+    this.api
+      .editarCategoria(this.categoriaEditar.id, this.categoriaEditar)
+      .subscribe((data) => {
+        alert(data);
+        location.reload();
+      });
+
+  }
+inicializarCategoria(categoriaAlmacenada:Categoria){
+  this.categoriaEditar.id = categoriaAlmacenada.id;
+    this.categoriaEditar.nombre = categoriaAlmacenada.nombre;
+this.categoriaEditar.productos = categoriaAlmacenada.productos;
+}
+
+  crearMarca() {
+    this.api.crearMarca(this.marcaCrear).subscribe((rta) => {
+      alert(rta);
+      location.reload();
+    });
+  }
 }
