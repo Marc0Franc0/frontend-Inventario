@@ -12,15 +12,17 @@ export class ApiService {
   constructor(private http: HttpClient) {}
   hostService:string = 'https://backend-inventarioapp-service.onrender.com';
   pathProductos: string = this.hostService+'/api/productos';
-  pathCategoria: string = this.hostService+'/api/categorias';
+  pathCategorias: string = this.hostService+'/api/categorias';
   pathMarcas: string = this.hostService+'/api/marcas';
 
+
+  //Consultas al servidor
   public obtenerListaProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.pathProductos + `/obtenertodos`);
   }
 
   public obtenerListaCategorias( ): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(this.pathCategoria + `/obtenertodas`
+    return this.http.get<Categoria[]>(this.pathCategorias + `/obtenertodas`
 
     );
   }
@@ -32,7 +34,7 @@ export class ApiService {
   }
 
   public obtenerCategoria(name: string): Observable<Categoria> {
-    return this.http.get<Categoria>(this.pathCategoria + `/obtenercategoria`, {
+    return this.http.get<Categoria>(this.pathCategorias + `/obtenercategoria`, {
       params: {
         name,
       },
@@ -57,4 +59,11 @@ export class ApiService {
     } );
   }
 
+  public crearCategoria(categoria:Categoria){
+return this.http.post(`${this.pathCategorias}/agregarnueva`,categoria,{responseType:'text'});
+  }
+public crearMarca(marca:Marca){
+
+  return this.http.post(`${this.pathMarcas}/agregarnueva`,marca,{responseType:'text'});
+}
 }

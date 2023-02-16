@@ -26,7 +26,7 @@ export class ProductosComponent  {
   listaMarcas: Marca[] | undefined;
   listaProductos: Producto[] | undefined ;
   //Se utiliza para mapear una sola cateogria y asi obtener la lista de productos de esa categoria mapeada
-  categoria: Categoria | undefined;
+  categoriaNavegar: Categoria | undefined;
 
 //Siguientes dos métodos utilizados para la seleccion de categorias y marcas
   capturar() {
@@ -60,7 +60,17 @@ export class ProductosComponent  {
     marca: '',
     categoria: '',
   };
-
+  //Utilizada para crear una nueva categoria
+  categoriaCrear:Categoria={
+id:0,
+nombre:'',
+productos:[]
+  };
+  marcaCrear:Categoria={
+    id:0,
+    nombre:'',
+    productos:[]
+      };
   constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit() {
@@ -91,51 +101,28 @@ export class ProductosComponent  {
 
 
   //Botones para navegar entre las diferentes categorías
- irAtodos() {
+  irAtodos() {
     this.api.obtenerListaProductos().subscribe((rta) => {
       this.listaProductos = rta;
     });
   }
-
-  irProcesadores() {
-    this.api.obtenerCategoria('Procesadores').subscribe((rta) => {
-      this.categoria = rta;
-      console.log(this.categoria);
-      this.listaProductos = this.categoria.productos;
+  irAcategoria(categoria:string){
+    this.api.obtenerCategoria(categoria).subscribe((rta) => {
+      this.categoriaNavegar = rta;
+      console.log(this.categoriaNavegar);
+      this.listaProductos = this.categoriaNavegar.productos;
     });
+
   }
 
-  irMemoriasRam() {
-    this.api.obtenerCategoria('Memorias ram').subscribe((rta) => {
-      this.categoria = rta;
-      console.log(this.categoria);
-      this.listaProductos = this.categoria.productos;
-    });
-  }
 
-  irMonitores() {
-    this.api.obtenerCategoria('Procesadores').subscribe((rta) => {
-      this.categoria = rta;
-      console.log(this.categoria);
-      this.listaProductos = this.categoria.productos;
-    });
-  }
-  irPlacasDeVideo() {
-    this.router.navigate(['Monitores']);
-  }
 
-  irTeclados() {
-    this.router.navigate(['teclados']);
-  }
 
-  eliminarProducto(id: number) {
-    this.api.eliminarProducto(id).subscribe((rta) => {
-      alert(rta);
-      location.reload();
-    });
-  }
 
-  //Botones para la creacion y edición de un producto
+
+
+
+  //Botones para la creacion , edición y eliminacion de un producto
   crearProducto() {
     this.producto.marca = this.verSeleccion;
     this.producto.categoria = this.verMarcaElegida;
@@ -154,6 +141,12 @@ export class ProductosComponent  {
         location.reload();
       });
   }
+  eliminarProducto(id: number) {
+    this.api.eliminarProducto(id).subscribe((rta) => {
+      alert(rta);
+      location.reload();
+    });
+  }
   /*Metodo para darle valor al producto que se utiliza en el formulario para editar, los valores son los que tiene
   el producto seleccionado para editar
   */
@@ -167,4 +160,22 @@ export class ProductosComponent  {
     this.productoEditar.marca = productoAlmacenado.marca;
     this.productoEditar.categoria = productoAlmacenado.categoria;
   }
+
+  crearCategoria(){
+
+this.api.crearCategoria(this.categoriaCrear).subscribe(rta=>{
+
+  alert(rta);
+  location.reload();
+});
+  }
+
+  crearMarca(){
+
+    this.api.crearMarca(this.marcaCrear).subscribe(rta=>{
+
+      alert(rta);
+      location.reload();
+    });
+      }
 }
