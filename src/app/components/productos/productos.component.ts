@@ -1,4 +1,4 @@
-import { LoginComponent } from './../login/login.component';
+
 import { Marca } from './../../../entity/Marca';
 import { Observable } from 'rxjs';
 import { Categoria } from './../../../entity/Categoria';
