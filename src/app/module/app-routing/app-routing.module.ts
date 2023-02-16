@@ -1,7 +1,7 @@
 
 
 import { HomeComponent } from './../../components/home/home.component';
-import { LoginComponent } from './../../components/login/login.component';
+
 
 import { ProductosComponent } from './../../components/productos/productos.component';
 import { NgModule } from '@angular/core';
@@ -12,7 +12,7 @@ const routes: Routes = [
     //Esta ruta es protegida en caso de no existir un token o estar expirado utilizando el guard AuthGuard
     path:'home', component:HomeComponent},
   { path: 'productos', component: ProductosComponent},
-  { path: '', component: LoginComponent}
+
 
 ];
 
