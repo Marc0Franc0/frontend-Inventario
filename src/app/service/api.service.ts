@@ -11,9 +11,9 @@ import { Marca } from 'src/entity/Marca';
 export class ApiService {
   constructor(private http: HttpClient) {}
   hostService:string = 'https://backend-inventarioapp-service.onrender.com';
-  pathProductos: string = this.hostService+'/productos';
-  pathCategoria: string = this.hostService+'/categorias';
-  pathMarcas: string = this.hostService+'/marcas';
+  pathProductos: string = this.hostService+'/api/productos';
+  pathCategoria: string = this.hostService+'/api/categorias';
+  pathMarcas: string = this.hostService+'/api/marcas';
 
   public obtenerListaProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.pathProductos + `/obtenertodos`);
