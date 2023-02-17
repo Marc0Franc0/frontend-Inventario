@@ -12,12 +12,14 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
+import { CreacionBotonesComponent } from './components/creacion-botones/creacion-botones.component';
 @NgModule({
   declarations: [
     AppComponent,
     ProductosComponent,
     NavbarComponent,
     HomeComponent,
+    CreacionBotonesComponent,
 
   ],
   imports: [

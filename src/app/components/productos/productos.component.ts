@@ -13,40 +13,19 @@ import { Credentials } from 'src/entity/Credentials';
   styleUrls: ['./productos.component.css'],
 })
 export class ProductosComponent {
+
+    //Listas para almacenar todas las categorias,marcas y productos del servidor
+    listaCategorias: Categoria[] | undefined;
+     listaProductos: Producto[] | undefined;
+     listaMarcas: Marca[] | undefined;
+  //Se utiliza para mapear una sola cateogria y asi obtener la lista de productos de esa categoria mapeada
+  categoriaNavegar: Categoria | undefined;
   //Siguientes dos variables utilizadas en el select de categoria
   opcionSeleccionado: string = '0';
   verSeleccion: string = '';
   //Siguientes dos variables utilizadas en el select de marca
   MarcaElegida: string = '0';
   verMarcaElegida: string = '';
-  //Listas para almacenar todas las categorias,marcas y productos del servidor
-  listaCategorias: Categoria[] | undefined;
-  listaMarcas: Marca[] | undefined;
-  listaProductos: Producto[] | undefined;
-  //Se utiliza para mapear una sola cateogria y asi obtener la lista de productos de esa categoria mapeada
-  categoriaNavegar: Categoria | undefined;
-
-  //Siguientes dos métodos utilizados para la seleccion de categorias y marcas
-  capturar() {
-    // Pasamos el valor seleccionado a la variable verSeleccion
-    this.verSeleccion = this.opcionSeleccionado;
-  }
-
-  capturarMarca() {
-    // Pasamos el valor seleccionado a la variable verSeleccion
-    this.verMarcaElegida = this.MarcaElegida;
-  }
- //Utilizada para crear un nuevo producto
-  producto: Producto = {
-    id: 0,
-    nombre: '',
-
-    imagen_url: '',
-    precio: 0,
-    cantidad_en_stock: 0,
-    marca: '',
-    categoria: '',
-  };
 //Utilizada para editar un producto
   productoEditar: Producto = {
     id: 0,
@@ -59,23 +38,12 @@ export class ProductosComponent {
     categoria: '',
   };
 
-  //Utilizada para crear una nueva categoria
-  categoriaCrear: Categoria = {
-    id: 0,
-    nombre: '',
-    productos: [],
-  };
+
    //Utilizada para editar una categoria
   categoriaEditar: Categoria = {
     id: 0,
     nombre: '',
    productos:[]
-  };
- //Utilizada para crear una nueva marca
-  marcaCrear: Categoria = {
-    id: 0,
-    nombre: '',
-    productos: [],
   };
 
 
@@ -88,18 +56,20 @@ export class ProductosComponent {
       console.log(rta);
     });
 
-    //Inicializo la lista de categorias almacenadas en la base de datos
-    this.api.obtenerListaCategorias().subscribe((rta) => {
-      this.listaCategorias = rta;
-      console.log(this.listaCategorias);
-    });
 
-    //Inicializo la lista de categorias almacenadas en la base de datos
-    this.api.obtenerListaMarcas().subscribe((rta) => {
-      this.listaMarcas = rta;
-      console.log(this.listaMarcas);
-    });
   }
+
+  //Siguientes dos métodos utilizados para la seleccion de categorias y marcas
+  capturar() {
+    // Pasamos el valor seleccionado a la variable verSeleccion
+    this.verSeleccion = this.opcionSeleccionado;
+  }
+
+  capturarMarca() {
+    // Pasamos el valor seleccionado a la variable verSeleccion
+    this.verMarcaElegida = this.MarcaElegida;
+  }
+
 
   //Métodos para navegar entre las diferentes categorías
   irAtodos() {
@@ -116,16 +86,7 @@ export class ProductosComponent {
   }
 
   //Metodos para la creacion , edición y eliminacion de un producto
-  crearProducto() {
-    this.producto.categoria = this.verSeleccion;
-    this.producto.marca = this.verMarcaElegida;
- //   console.log("Categoria:",this.verSeleccion);
-   // console.log("Marca:",this.verMarcaElegida);
-    this.api.crearProducto(this.producto).subscribe((data) => {
-      alert(data);
-      location.reload();
-    });
-  }
+
   editarProducto() {
     this.productoEditar.categoria = this.verSeleccion;
     this.productoEditar.marca = this.verMarcaElegida;
@@ -157,12 +118,6 @@ export class ProductosComponent {
   }
 
   //Botones para la creacion, edicion y eliminacion de una categoría
-  crearCategoria() {
-    this.api.crearCategoria(this.categoriaCrear).subscribe((rta) => {
-      alert(rta);
-      location.reload();
-    });
-  }
 
   eliminarCategoria(id: number) {
     this.api.eliminarCategoria(id).subscribe((rta) => {
@@ -186,10 +141,5 @@ inicializarCategoria(categoriaAlmacenada:Categoria){
 this.categoriaEditar.productos = categoriaAlmacenada.productos;
 }
 
-  crearMarca() {
-    this.api.crearMarca(this.marcaCrear).subscribe((rta) => {
-      alert(rta);
-      location.reload();
-    });
-  }
+
 }

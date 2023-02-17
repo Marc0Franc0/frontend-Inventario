@@ -1,0 +1,153 @@
+
+
+
+  <div class="col">
+
+    <div class="btn-group" role="group" aria-label="Basic outlined example">
+  <button type="button" class="btn  btn-secondary" data-bs-toggle="modal"
+        data-bs-target="#formularioProducto">Crear Producto</button>
+        <button type="button" class="btn  btn-primary" data-bs-toggle="modal"
+        data-bs-target="#formularioCategoria">Crear Categoría</button>
+        <button type="button" class="btn  btn-secondary" data-bs-toggle="modal"
+        data-bs-target="#formularioMarca">Crear Marca</button>
+</div>
+  </div>
+
+
+
+  <!--Modal para la creacion de un nuevo producto-->
+  <div class="modal fade formularioProducto" id="formularioProducto" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLabel">Nuevo producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <select class="form-select" aria-label="Default select example"
+            [(ngModel)]="opcionSeleccionado" (change)="capturar()">
+            <option selected>Seleccione una categoría</option>
+              <option *ngFor="let categoria of listaCategorias">
+                {{categoria.nombre}}
+              </option>
+            </select>
+
+            <select class="form-select mt-3" aria-label="Default select example"
+            [(ngModel)]="MarcaElegida" (change)="capturarMarca()">
+            <option selected>Seleccione una marca</option>
+              <option *ngFor="let marca of listaMarcas">
+                {{marca.nombre}}
+              </option>
+            </select>
+          <form (ngSubmit)="crearProducto()">
+
+
+            <div class="mb-3 mt-3">
+              <input type="text" class="form-control" required [(ngModel)]="this.producto.nombre" name="nombre" matInput
+                placeholder="Nombre de producto">
+            </div>
+
+            <div class="mb-3">
+              <input type="text" class="form-control" required [(ngModel)]="producto.imagen_url" name="url imagen"
+                matInput placeholder="Url de imagen">
+            </div>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">$</span>
+              <span class="input-group-text">0.00</span>
+              <input type="text" class="form-control" required [(ngModel)]="producto.precio" name="precio"
+              placeholder="Valor de venta" aria-label="Dollar amount (with dot and two decimal places)">
+            </div>
+            <div class="mb-3">
+
+              <input type="" class="form-control" required [(ngModel)]="producto.cantidad_en_stock" name="stock"
+              placeholder="Cantidad en stock"  matInput>
+            </div>
+            <!-- <div class="mb-3">
+
+
+            <textarea class="form-control inputs" id="message-text" required
+              [(ngModel)]="producto.marca" name="descripcion" matInput
+              placeholder="Comentario"></textarea>
+          </div> -->
+            <button class="btn botones ">Enviar</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!--Modal para la creacion de una categoria-->
+  <div class="modal fade formularioProducto" id="formularioCategoria" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Nueva categoría</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form (ngSubmit)="crearCategoria()">
+
+
+          <div class="mb-3 mt-3">
+            <input type="text" class="form-control" required [(ngModel)]="this.categoriaCrear.nombre" name="nombreCategoria" matInput
+              placeholder="Nombre de categoria">
+          </div>
+
+          <!-- <div class="mb-3">
+
+
+          <textarea class="form-control inputs" id="message-text" required
+            [(ngModel)]="producto.marca" name="descripcion" matInput
+            placeholder="Comentario"></textarea>
+        </div> -->
+          <button class="btn botones ">Enviar</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!--Modal par a la creacion de una nueva marca-->
+<div class="modal fade formularioProducto" id="formularioMarca" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Nueva marca</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form (ngSubmit)="crearMarca()">
+
+
+          <div class="mb-3 mt-3">
+            <input type="text" class="form-control" required [(ngModel)]="this.marcaCrear.nombre" name="nombreMarca" matInput
+              placeholder="Nombre de marca">
+          </div>
+
+          <!-- <div class="mb-3">
+
+
+          <textarea class="form-control inputs" id="message-text" required
+            [(ngModel)]="producto.marca" name="descripcion" matInput
+            placeholder="Comentario"></textarea>
+        </div> -->
+          <button class="btn botones btn-success">Enviar</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
