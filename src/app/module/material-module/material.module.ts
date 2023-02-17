@@ -19,7 +19,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
+import {MatTooltipModule} from '@angular/material/tooltip'
 @NgModule({
   declarations: [],
   imports: [
@@ -54,6 +54,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatIconModule,
     MatListModule,
     MatCheckboxModule,
+    MatTooltipModule
 
   ]
 })

@@ -55,6 +55,18 @@ export class ProductosComponent {
       this.listaProductos = rta;
       console.log(rta);
     });
+      //Inicializo la lista de categorias almacenadas en la base de datos
+      this.api.obtenerListaCategorias().subscribe((rta) => {
+        this.listaCategorias = rta;
+        console.log(this.listaCategorias);
+      });
+
+      //Inicializo la lista de categorias almacenadas en la base de datos
+      this.api.obtenerListaMarcas().subscribe((rta) => {
+        this.listaMarcas = rta;
+        console.log(this.listaMarcas);
+      });
+
 
 
   }

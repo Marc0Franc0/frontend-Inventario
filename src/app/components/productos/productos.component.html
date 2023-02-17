@@ -33,9 +33,12 @@
 
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" type="button" data-bs-toggle="modal"
+                <li><a class="dropdown-item" type="button"
+                 data-bs-toggle="modal"
                   data-bs-target="#formularioEditarCateg" (click)="inicializarCategoria(categ)">Editar</a></li>
-                <li><a class="dropdown-item" type="button" (click)="eliminarCategoria(categ.id)">Eliminar</a></li>
+                <li><a class="dropdown-item" type="button"
+
+                  (click)="eliminarCategoria(categ.id)">Eliminar</a></li>
               </ul>
             </div>
           </div>
@@ -76,7 +79,11 @@
                 </div>
 
                 <div class="col-3">
-                  <button class="botones" (click)="inicializarProducto(product)" data-bs-toggle="modal"
+                  <button class="botones"
+                  mat-raised
+                  matTooltipPosition ="below"
+                  matTooltip="Editar producto"
+                  (click)="inicializarProducto(product)" data-bs-toggle="modal"
                     data-bs-target="#formularioEditar" data-bs-whatever="usuario.id">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                       class="bi bi-pencil" viewBox="0 0 16 16">
@@ -88,7 +95,11 @@
                 </div>
                 <div class="col-3">
 
-                  <button class="botones" (click)="eliminarProducto(product.id)">
+                  <button class="botones"
+                  mat-raised
+                  matTooltipPosition ="below"
+                  matTooltip="Eliminar producto"
+                  (click)="eliminarProducto(product.id)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                       class="bi bi-trash3" viewBox="0 0 16 16">
                       <path
