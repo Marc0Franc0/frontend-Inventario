@@ -34,7 +34,7 @@ export class ProductosComponent {
 
   capturarMarca() {
     // Pasamos el valor seleccionado a la variable verSeleccion
-    this.verSeleccion = this.opcionSeleccionado;
+    this.verMarcaElegida = this.MarcaElegida;
   }
  //Utilizada para crear un nuevo producto
   producto: Producto = {
@@ -117,8 +117,10 @@ export class ProductosComponent {
 
   //Metodos para la creacion , edición y eliminacion de un producto
   crearProducto() {
-    this.producto.marca = this.verSeleccion;
-    this.producto.categoria = this.verMarcaElegida;
+    this.producto.categoria = this.verSeleccion;
+    this.producto.marca = this.verMarcaElegida;
+ //   console.log("Categoria:",this.verSeleccion);
+   // console.log("Marca:",this.verMarcaElegida);
     this.api.crearProducto(this.producto).subscribe((data) => {
       alert(data);
       location.reload();
