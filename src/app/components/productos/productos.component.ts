@@ -15,11 +15,9 @@ import { Credentials } from 'src/entity/Credentials';
 export class ProductosComponent {
 
     //Listas para almacenar todas las categorias,marcas y productos del servidor
-    listaCategorias: Categoria[] | undefined;
      listaProductos: Producto[] | undefined;
+     listaCategorias: Categoria[] | undefined;
      listaMarcas: Marca[] | undefined;
-  //Se utiliza para mapear una sola cateogria y asi obtener la lista de productos de esa categoria mapeada
-  categoriaNavegar: Categoria | undefined;
   //Siguientes dos variables utilizadas en el select de categoria
   opcionSeleccionado: string = '0';
   verSeleccion: string = '';
@@ -37,15 +35,14 @@ export class ProductosComponent {
     marca: '',
     categoria: '',
   };
-
-
    //Utilizada para editar una categoria
-  categoriaEditar: Categoria = {
+   categoriaEditar: any = {
     id: 0,
     nombre: '',
    productos:[]
   };
-
+//Se utiliza para mapear una sola cateogria y asi obtener la lista de productos de esa categoria mapeada
+categoriaNavegar: Categoria | undefined;
 
   constructor(private api: ApiService, private router: Router) {}
 
@@ -55,17 +52,20 @@ export class ProductosComponent {
       this.listaProductos = rta;
       console.log(rta);
     });
-      //Inicializo la lista de categorias almacenadas en la base de datos
-      this.api.obtenerListaCategorias().subscribe((rta) => {
-        this.listaCategorias = rta;
-        console.log(this.listaCategorias);
-      });
+        //Inicializo la lista de categorias almacenadas en la base de datos
+        this.api.obtenerListaCategorias().subscribe((rta) => {
+          this.listaCategorias = rta;
+          console.log(this.listaCategorias);
+          this.api.disparadorListaCategorias.emit(rta);
+        });
 
-      //Inicializo la lista de categorias almacenadas en la base de datos
-      this.api.obtenerListaMarcas().subscribe((rta) => {
-        this.listaMarcas = rta;
-        console.log(this.listaMarcas);
-      });
+    //Inicializo la lista de categorias almacenadas en la base de datos
+    this.api.obtenerListaMarcas().subscribe((rta) => {
+      this.listaMarcas = rta;
+      console.log(this.listaMarcas);
+      this.api.disparadorListaMarcas.emit(rta);
+    });
+
 
 
 
@@ -87,13 +87,6 @@ export class ProductosComponent {
   irAtodos() {
     this.api.obtenerListaProductos().subscribe((rta) => {
       this.listaProductos = rta;
-    });
-  }
-  irAcategoria(categoria: string) {
-    this.api.obtenerCategoria(categoria).subscribe((rta) => {
-      this.categoriaNavegar = rta;
-      console.log(this.categoriaNavegar);
-      this.listaProductos = this.categoriaNavegar.productos;
     });
   }
 
@@ -129,28 +122,54 @@ export class ProductosComponent {
     this.productoEditar.categoria = productoAlmacenado.categoria;
   }
 
-  //Botones para la creacion, edicion y eliminacion de una categoría
+
+  mostrarBotones(eleccion:string){
+this.api.disparadorDebtnCatMarc.emit(eleccion);
+this.api.disparadorListaProductos.subscribe(data=>{
+
+  this.listaProductos=data;
+
+});
+  }
+
+  //Botones para la edicion y eliminacion de una categoría
 
   eliminarCategoria(id: number) {
+
     this.api.eliminarCategoria(id).subscribe((rta) => {
       alert(rta);
       location.reload();
     });
   }
 
-  editarCategoria() {
-    this.api
-      .editarCategoria(this.categoriaEditar.id, this.categoriaEditar)
-      .subscribe((data) => {
-        alert(data);
-        location.reload();
-      });
 
-  }
-inicializarCategoria(categoriaAlmacenada:Categoria){
-  this.categoriaEditar.id = categoriaAlmacenada.id;
-    this.categoriaEditar.nombre = categoriaAlmacenada.nombre;
-this.categoriaEditar.productos = categoriaAlmacenada.productos;
+editarCategoria() {
+  this.api
+    .editarCategoria(this.categoriaEditar.id, this.categoriaEditar)
+    .subscribe((data) => {
+      alert(data);
+      location.reload();
+    });
+
+}
+
+inicializarCategoria (boton:any){
+
+this.categoriaEditar.id = boton.id;
+  this.categoriaEditar.nombre = boton.nombre;
+this.categoriaEditar.productos = boton.productos;
+}
+
+irAcategoria(categoriaMarca: string) {
+
+
+
+  this.api.obtenerCategoria(categoriaMarca).subscribe((rta) => {
+    this.categoriaNavegar = rta;
+    this.listaProductos = this.categoriaNavegar.productos;
+  });
+
+
 }
 
 

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Categoria } from 'src/entity/Categoria';
 import { Producto } from 'src/entity/producto';
@@ -10,6 +10,10 @@ import { Marca } from 'src/entity/Marca';
 })
 export class ApiService {
   constructor(private http: HttpClient) {}
+@Output() disparadorDebtnCatMarc : EventEmitter<string> = new EventEmitter();
+@Output() disparadorListaProductos : EventEmitter<Producto[]>= new EventEmitter();
+@Output() disparadorListaCategorias :EventEmitter<Categoria[]>=new EventEmitter();
+@Output() disparadorListaMarcas :EventEmitter<Marca[]>=new EventEmitter();
   hostService:string = 'https://backend-inventarioapp-service.onrender.com';
   pathProductos: string = this.hostService+'/api/productos';
   pathCategorias: string = this.hostService+'/api/categorias';
@@ -40,7 +44,13 @@ export class ApiService {
       },
     });
   }
-
+  public obtenerMarca(name: string): Observable<Categoria> {
+    return this.http.get<Categoria>(this.pathCategorias + `/obtenercategoria`, {
+      params: {
+        name,
+      },
+    });
+  }
   public eliminarProducto(id: number) {
     return this.http.delete(`${this.pathProductos}/eliminarproducto/` + id, {
       responseType: 'text',
@@ -78,4 +88,7 @@ public crearMarca(marca:Marca){
 
   return this.http.post(`${this.pathMarcas}/agregarnueva`,marca,{responseType:'text'});
 }
+
+
+
 }
