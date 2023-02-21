@@ -1,8 +1,10 @@
+
 import { ApiService } from './../../service/api.service';
 import { Component } from '@angular/core';
 import { Categoria } from 'src/entity/Categoria';
 import { Marca } from 'src/entity/Marca';
 import { Producto } from 'src/entity/producto';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-creacion-botones',
@@ -62,29 +64,48 @@ ngOnInit(){
 
 }
 crearMarca() {
-  this.api.crearMarca(this.marcaCrear).subscribe((rta) => {
-    alert(rta);
-    location.reload();
-  });
+  this.api.crearMarca(this.marcaCrear).subscribe(response=>Swal.fire(
+    'Hecho',
+    response,
+    'success'
+  ),
+
+  error=>Swal.fire(
+    'Hubo un error de conexión',
+    error,
+    'error'
+  ));
 }
 
 
 crearCategoria() {
-  this.api.crearCategoria(this.categoriaCrear).subscribe((rta) => {
-    alert(rta);
-    location.reload();
-  });
+  this.api.crearCategoria(this.categoriaCrear).subscribe(response=>Swal.fire(
+    'Hecho',
+    response,
+    'success'
+  ),
+
+  error=>Swal.fire(
+    'Hubo un error de conexión',
+    error,
+    'error'
+  ));
 }
 
 crearProducto() {
   this.producto.categoria = this.verSeleccion;
   this.producto.marca = this.verMarcaElegida;
-//   console.log("Categoria:",this.verSeleccion);
- // console.log("Marca:",this.verMarcaElegida);
-  this.api.crearProducto(this.producto).subscribe((data) => {
-    alert(data);
-    location.reload();
-  });
+  this.api.crearProducto(this.producto).subscribe(response=>Swal.fire(
+    'Hecho',
+    response,
+    'success'
+  ),
+
+  error=>Swal.fire(
+    'Hubo un error de conexión',
+    error,
+    'error'
+  ));
 }
 
 

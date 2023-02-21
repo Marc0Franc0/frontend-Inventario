@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter, Injectable, Input, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, observable, Observable } from 'rxjs';
 import { Categoria } from 'src/entity/Categoria';
 import { Producto } from 'src/entity/producto';
 import { Marca } from 'src/entity/Marca';
-
+import { throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +14,7 @@ export class ApiService {
 @Output() disparadorListaProductos : EventEmitter<Producto[]>= new EventEmitter();
 @Output() disparadorListaCategorias :EventEmitter<Categoria[]>=new EventEmitter();
 @Output() disparadorListaMarcas :EventEmitter<Marca[]>=new EventEmitter();
-  hostService:string = 'https://backend-inventarioapp-service.onrender.com';
+  hostService:string = 'http://localhost:8080';
   pathProductos: string = this.hostService+'/api/productos';
   pathCategorias: string = this.hostService+'/api/categorias';
   pathMarcas: string = this.hostService+'/api/marcas';
@@ -57,10 +57,8 @@ export class ApiService {
     });
   }
 
-  public crearProducto(producto: Producto):Observable<String> {
-    return this.http.post(`${this.pathProductos}/agregarnuevo`,producto,{
-      responseType: 'text',
-    } );
+  public crearProducto(producto: Producto):Observable<any> {
+    return this.http.post(`${this.pathProductos}/agregarnuevo`,producto,{observe:"response"});
   }
 
   public editarProducto(id:number,producto: Producto):Observable<String> {
@@ -88,7 +86,11 @@ public crearMarca(marca:Marca){
 
   return this.http.post(`${this.pathMarcas}/agregarnueva`,marca,{responseType:'text'});
 }
-
+public editarMarca(id:number,marca: Marca):Observable<String> {
+  return this.http.put(`${this.pathMarcas}/editarexistente/`+id ,marca,{
+    responseType: 'text',
+  } );
+}
 
 
 }

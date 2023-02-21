@@ -25,13 +25,21 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <select class="form-select" aria-label="Default select example"
-            [(ngModel)]="opcionSeleccionado" (change)="capturar()">
+
+
+          <div class="mb-3">
+
+            <select class="form-select" aria-label="Default select example"
+            [(ngModel)]="opcionSeleccionado"  (change)="capturar() ">
             <option selected>Seleccione una categoría</option>
-              <option *ngFor="let categoria of listaCategorias">
+              <option *ngFor="let categoria of listaCategorias" >
                 {{categoria.nombre}}
               </option>
+
             </select>
+
+
+          </div>
 
             <select class="form-select mt-3" aria-label="Default select example"
             [(ngModel)]="MarcaElegida" (change)="capturarMarca()">
@@ -40,7 +48,8 @@
                 {{marca.nombre}}
               </option>
             </select>
-          <form (ngSubmit)="crearProducto()">
+          <form class="needs-validation" (ngSubmit)="crearProducto()" novalidate>
+
 
 
             <div class="mb-3 mt-3">
@@ -59,11 +68,14 @@
               <input type="text" class="form-control" required [(ngModel)]="producto.precio" name="precio"
               placeholder="Valor de venta" aria-label="Dollar amount (with dot and two decimal places)">
             </div>
-            <div class="mb-3">
+            <div class="input-group  mb-3">
+              <span class="input-group-text">Stock</span>
 
               <input type="" class="form-control" required [(ngModel)]="producto.cantidad_en_stock" name="stock"
               placeholder="Cantidad en stock"  matInput>
             </div>
+
+
             <!-- <div class="mb-3">
 
 
@@ -71,7 +83,7 @@
               [(ngModel)]="producto.marca" name="descripcion" matInput
               placeholder="Comentario"></textarea>
           </div> -->
-            <button class="btn botones btn-success ">Enviar</button>
+            <button class="btn botones btn-success " type="submit">Enviar</button>
           </form>
         </div>
 
@@ -151,3 +163,30 @@
     </div>
   </div>
 </div>
+
+
+<script>
+
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+
+</script>

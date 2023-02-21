@@ -6,6 +6,7 @@ import { AfterViewInit, ViewChild, Component, Input } from '@angular/core';
 import { Producto } from 'src/entity/producto';
 import { Router } from '@angular/router';
 import { Credentials } from 'src/entity/Credentials';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos',
@@ -41,6 +42,12 @@ export class ProductosComponent {
     nombre: '',
    productos:[]
   };
+    //Utilizada para editar una marca
+  marcaEditar: any = {
+      id: 0,
+      nombre: '',
+     productos:[]
+    };
 //Se utiliza para mapear una sola cateogria y asi obtener la lista de productos de esa categoria mapeada
 categoriaNavegar: Categoria | undefined;
 
@@ -64,7 +71,7 @@ categoriaNavegar: Categoria | undefined;
       this.listaMarcas = rta;
       console.log(this.listaMarcas);
       this.api.disparadorListaMarcas.emit(rta);
-    });
+    },error=>Swal.fire('No hay conexión a internet', error.error, 'error'));
 
 
 
@@ -97,10 +104,10 @@ categoriaNavegar: Categoria | undefined;
     this.productoEditar.marca = this.verMarcaElegida;
     this.api
       .editarProducto(this.productoEditar.id, this.productoEditar)
-      .subscribe((data) => {
-        alert(data);
+      .subscribe((data:any) => {
+        Swal.fire('Hecho', data, 'success');
         location.reload();
-      });
+      },error=>Swal.fire('Hubo un error', error.error, 'error'));
   }
   eliminarProducto(id: number) {
     this.api.eliminarProducto(id).subscribe((rta) => {
@@ -146,18 +153,25 @@ this.api.disparadorListaProductos.subscribe(data=>{
 editarCategoria() {
   this.api
     .editarCategoria(this.categoriaEditar.id, this.categoriaEditar)
-    .subscribe((data) => {
-      alert(data);
-      location.reload();
-    });
+    .subscribe((data:any) => {
+      //alert(data);
+      Swal.fire('Hecho', data, 'success');
+      //location.reload();
+    },error=>Swal.fire('Hubo un error', error.error, 'error'));
 
 }
 
-inicializarCategoria (boton:any){
+inicializarCategoria (categoriaAlmacenada:any){
 
-this.categoriaEditar.id = boton.id;
-  this.categoriaEditar.nombre = boton.nombre;
-this.categoriaEditar.productos = boton.productos;
+this.categoriaEditar.id = categoriaAlmacenada.id;
+  this.categoriaEditar.nombre = categoriaAlmacenada.nombre;
+this.categoriaEditar.productos = categoriaAlmacenada.productos;
+}
+
+inicializarMarca(marcaAlmacenada:Marca){
+this.marcaEditar.id= marcaAlmacenada.id;
+this.marcaEditar.nombre=marcaAlmacenada.nombre;
+this.marcaEditar.productos=marcaAlmacenada.productos;
 }
 
 irAcategoria(categoriaMarca: string) {
@@ -173,4 +187,15 @@ irAcategoria(categoriaMarca: string) {
 }
 
 
+editarMarca(){
+  this.api
+    .editarMarca(this.marcaEditar.id, this.marcaEditar)
+    .subscribe((data:any) => {
+
+      Swal.fire('Hecho', data, 'success');
+
+      location.reload();
+    },error=>Swal.fire('Hubo un error', error.error, 'error'));
+
+}
 }
