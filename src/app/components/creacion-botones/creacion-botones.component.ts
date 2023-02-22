@@ -90,7 +90,7 @@ crearProducto() {
     this.api.alertaOK(data);
     setTimeout('document.location.reload()',2800);
   }
-    ,error=>this.api.alertaWARNING(error.error));
+    ,error=>console.log(error.error));
   }
 
 }

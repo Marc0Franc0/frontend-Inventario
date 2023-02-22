@@ -93,7 +93,7 @@ public alertaWARNING(text:string){
   }
 
   public crearProducto(producto: Producto):Observable<any> {
-    return this.http.post(`${this.pathProductos}/agregarnuevo`,producto,{observe:"response"});
+    return this.http.post(`${this.pathProductos}/agregarnuevo`,producto,{responseType:"text"});
   }
 
   public editarProducto(id:number,producto: Producto):Observable<String> {
