@@ -64,48 +64,37 @@ ngOnInit(){
 
 }
 crearMarca() {
-  this.api.crearMarca(this.marcaCrear).subscribe(response=>Swal.fire(
+  this.api.crearMarca(this.marcaCrear).subscribe(response=>{Swal.fire(
     'Hecho',
     response,
     'success'
-  ),
-
-  error=>Swal.fire(
-    'Hubo un error de conexión',
-    error,
-    'error'
-  ));
+  );location.reload();
+},error=>Swal.fire('Hubo un error', error.error, 'warning'))
 }
 
 
 crearCategoria() {
-  this.api.crearCategoria(this.categoriaCrear).subscribe(response=>Swal.fire(
+  this.api.crearCategoria(this.categoriaCrear).subscribe(response=>{Swal.fire(
     'Hecho',
     response,
     'success'
-  ),
-
-  error=>Swal.fire(
-    'Hubo un error de conexión',
-    error,
-    'error'
-  ));
+  );location.reload();},error=>Swal.fire('Hubo un error', error.error, 'warning'));
 }
 
 crearProducto() {
-  this.producto.categoria = this.verSeleccion;
+
+  if(this.producto.nombre.length>29){
+    Swal.fire('Hubo un error', 'Intente con un nombre para el producto mas corto', 'warning')
+  }else{
+    this.producto.categoria = this.verSeleccion;
   this.producto.marca = this.verMarcaElegida;
-  this.api.crearProducto(this.producto).subscribe(response=>Swal.fire(
+  this.api.crearProducto(this.producto).subscribe(response=>{Swal.fire(
     'Hecho',
     response,
     'success'
-  ),
+  );location.reload();},error=>Swal.fire('Hubo un error', error.error, 'warning'));
+  }
 
-  error=>Swal.fire(
-    'Hubo un error de conexión',
-    error,
-    'error'
-  ));
 }
 
 

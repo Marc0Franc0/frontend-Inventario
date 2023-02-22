@@ -156,7 +156,7 @@ editarCategoria() {
     .subscribe((data:any) => {
       //alert(data);
       Swal.fire('Hecho', data, 'success');
-      //location.reload();
+      location.reload();
     },error=>Swal.fire('Hubo un error', error.error, 'error'));
 
 }
