@@ -64,35 +64,33 @@ ngOnInit(){
 
 }
 crearMarca() {
-  this.api.crearMarca(this.marcaCrear).subscribe(response=>{Swal.fire(
-    'Hecho',
-    response,
-    'success'
-  );location.reload();
-},error=>Swal.fire('Hubo un error', error.error, 'warning'))
+  this.api.crearMarca(this.marcaCrear).subscribe(data=>{
+    this.api.alertaOK(data);
+    setTimeout('document.location.reload()',2800);
+},error=>this.api.alertaWARNING(error.error))
 }
 
 
 crearCategoria() {
-  this.api.crearCategoria(this.categoriaCrear).subscribe(response=>{Swal.fire(
-    'Hecho',
-    response,
-    'success'
-  );location.reload();},error=>Swal.fire('Hubo un error', error.error, 'warning'));
+  this.api.crearCategoria(this.categoriaCrear).subscribe(data=>{
+    this.api.alertaOK(data);
+    setTimeout('document.location.reload()',2800);
+},error=>this.api.alertaWARNING(error.error));
 }
 
 crearProducto() {
 
   if(this.producto.nombre.length>29){
-    Swal.fire('Hubo un error', 'Intente con un nombre para el producto mas corto', 'warning')
+    this.api.alertaWARNING('Intente con un nombre mas corto')
   }else{
     this.producto.categoria = this.verSeleccion;
   this.producto.marca = this.verMarcaElegida;
-  this.api.crearProducto(this.producto).subscribe(response=>{Swal.fire(
-    'Hecho',
-    response,
-    'success'
-  );location.reload();},error=>Swal.fire('Hubo un error', error.error, 'warning'));
+  this.api.crearProducto(this.producto).subscribe(data=>{
+
+    this.api.alertaOK(data);
+    setTimeout('document.location.reload()',2800);
+  }
+    ,error=>this.api.alertaWARNING(error.error));
   }
 
 }

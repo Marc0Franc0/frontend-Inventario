@@ -5,6 +5,7 @@ import { Categoria } from 'src/entity/Categoria';
 import { Producto } from 'src/entity/producto';
 import { Marca } from 'src/entity/Marca';
 import { throwError } from 'rxjs';
+import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,8 +19,42 @@ export class ApiService {
   pathProductos: string = this.hostService+'/api/productos';
   pathCategorias: string = this.hostService+'/api/categorias';
   pathMarcas: string = this.hostService+'/api/marcas';
+//Alertas
+public alertaOK(text:string){
+  return Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    text:text,
+    title: 'Hecho',
+    showConfirmButton: false,
+    timer: 2700
 
+  });
 
+}
+
+public alertaERROR(text:string){
+  return Swal.fire({
+    position: 'top-end',
+    icon: 'error',
+    text:text,
+    title: 'Hubo un error',
+    showConfirmButton: false,
+    timer: 2700
+
+  });
+}
+public alertaWARNING(text:string){
+  return Swal.fire({
+    position: 'top-end',
+    icon: 'warning',
+    text:text,
+    title: 'Hubo un error',
+    showConfirmButton: false,
+    timer: 2700
+
+  });
+}
   //Consultas al servidor
   public obtenerListaProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.pathProductos + `/obtenertodos`);

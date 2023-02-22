@@ -63,7 +63,7 @@ categoriaNavegar: Categoria | undefined;
         this.api.obtenerListaCategorias().subscribe((rta) => {
           this.listaCategorias = rta;
           console.log(this.listaCategorias);
-          this.api.disparadorListaCategorias.emit(rta);
+
         });
 
     //Inicializo la lista de categorias almacenadas en la base de datos
@@ -71,7 +71,7 @@ categoriaNavegar: Categoria | undefined;
       this.listaMarcas = rta;
       console.log(this.listaMarcas);
       this.api.disparadorListaMarcas.emit(rta);
-    },error=>Swal.fire('No hay conexión a internet', error.error, 'error'));
+    },error=>this.api.alertaERROR(error.error));
 
 
 
@@ -105,14 +105,15 @@ categoriaNavegar: Categoria | undefined;
     this.api
       .editarProducto(this.productoEditar.id, this.productoEditar)
       .subscribe((data:any) => {
-        Swal.fire('Hecho', data, 'success');
-        location.reload();
-      },error=>Swal.fire('Hubo un error', error.error, 'error'));
+       this.api.alertaOK(data);
+       setTimeout('document.location.reload()',2800);
+
+      },error=>this.api.alertaERROR(error.error));
   }
   eliminarProducto(id: number) {
-    this.api.eliminarProducto(id).subscribe((rta) => {
-      alert(rta);
-      location.reload();
+    this.api.eliminarProducto(id).subscribe((data:any) => {
+      this.api.alertaOK(data);
+      setTimeout('document.location.reload()',2800);
     });
   }
   /*Metodo para darle valor al producto que se utiliza en el formulario para editar, los valores son los que tiene
@@ -155,9 +156,9 @@ editarCategoria() {
     .editarCategoria(this.categoriaEditar.id, this.categoriaEditar)
     .subscribe((data:any) => {
       //alert(data);
-      Swal.fire('Hecho', data, 'success');
-      location.reload();
-    },error=>Swal.fire('Hubo un error', error.error, 'error'));
+      this.api.alertaOK(data);
+      setTimeout('document.location.reload()',2800);
+    },error=>this.api.alertaERROR(error.error));
 
 }
 
@@ -192,10 +193,9 @@ editarMarca(){
     .editarMarca(this.marcaEditar.id, this.marcaEditar)
     .subscribe((data:any) => {
 
-      Swal.fire('Hecho', data, 'success');
-
-      location.reload();
-    },error=>Swal.fire('Hubo un error', error.error, 'error'));
+      this.api.alertaOK(data);
+      setTimeout('document.location.reload()',2800);
+    },error=>this.api.alertaERROR(error.error));
 
 }
 }
