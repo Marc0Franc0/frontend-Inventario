@@ -80,7 +80,7 @@ public alertaWARNING(text:string){
     });
   }
   public obtenerMarca(name: string): Observable<Categoria> {
-    return this.http.get<Categoria>(this.pathCategorias + `/obtenercategoria`, {
+    return this.http.get<Categoria>(this.pathCategorias + `/obtenermarca`, {
       params: {
         name,
       },
