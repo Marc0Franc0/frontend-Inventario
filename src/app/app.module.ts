@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home/home.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { CreacionBotonesComponent } from './components/creacion-botones/creacion-botones.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CreacionBotonesComponent } from './components/creacion-botones/creacion
     NavbarComponent,
     HomeComponent,
     CreacionBotonesComponent,
+    FooterComponent,
 
 
   ],
