@@ -1,0 +1,65 @@
+<h2 class="text-center mt-2" clas>Categorías</h2>
+<hr>
+<div class="col-8 mx-auto text-start d-grid gap-2 mt-3" *ngFor="let categ of this.listaCategorias">
+
+
+  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+    <button type="button" (click)="irAcategoria(categ.nombre)"
+      class="btn btn-lg btn-outline-light">{{categ.nombre}}</button>
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+        aria-expanded="false">
+
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" type="button" data-bs-toggle="modal"
+            data-bs-target="#formularioEditarCategoria" (click)="inicializarCategoria(categ)">Editar</a></li>
+
+      </ul>
+    </div>
+  </div>
+
+
+
+</div>
+
+
+
+  <!--Modal para la edicion de una categoría-->
+  <div class="modal fade formularioProducto" id="formularioEditarCategoria" tabindex="-1" data-bs-whatever=""
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLabel">Editar categoría</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+
+
+          <form (ngSubmit)="editarCategoria()" class="formularioProducto">
+
+            <div class="mb-3 mt-3">
+              ID
+              <input type="number" class="form-control" [disabled]=true value={{categoriaEditar.id}} required
+                [(ngModel)]="this.categoriaEditar.id" name="id" matInput>
+            </div>
+
+
+            <div class="mb-3">
+              <input type="text" class="form-control" required [(ngModel)]="this.categoriaEditar.nombre" name="nombre"
+                matInput placeholder="Nombre de categoria">
+            </div>
+
+
+
+            <button class="btn botones btn-success">Guardar</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+

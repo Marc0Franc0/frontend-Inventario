@@ -14,18 +14,18 @@ import Swal from 'sweetalert2';
   styleUrls: ['./productos.component.css'],
 })
 export class ProductosComponent {
+  //Listas para almacenar todas las categorias,marcas y productos del servidor
+  listaProductos: Producto[] | undefined;
+  listaCategorias: Categoria[] | undefined;
+  listaMarcas: Marca[] | undefined;
 
-    //Listas para almacenar todas las categorias,marcas y productos del servidor
-     listaProductos: Producto[] | undefined;
-     listaCategorias: Categoria[] | undefined;
-     listaMarcas: Marca[] | undefined;
   //Siguientes dos variables utilizadas en el select de categoria
   opcionSeleccionado: string = '0';
   verSeleccion: string = '';
   //Siguientes dos variables utilizadas en el select de marca
   MarcaElegida: string = '0';
   verMarcaElegida: string = '';
-//Utilizada para editar un producto
+  //Utilizada para editar un producto
   productoEditar: Producto = {
     id: 0,
     nombre: '',
@@ -36,46 +36,31 @@ export class ProductosComponent {
     marca: '',
     categoria: '',
   };
-   //Utilizada para editar una categoria
-   categoriaEditar: any = {
-    id: 0,
-    nombre: '',
-   productos:[]
-  };
-    //Utilizada para editar una marca
-  marcaEditar: any = {
-      id: 0,
-      nombre: '',
-     productos:[]
-    };
-//Se utiliza para mapear una sola cateogria y asi obtener la lista de productos de esa categoria mapeada
-categoriaNavegar: Categoria | undefined;
+
 
   constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit() {
-    //Inicializo la lista de productos almacenadas en la base de datos
-    this.api.obtenerListaProductos().subscribe((rta) => {
-      this.listaProductos = rta;
-      console.log(rta);
+    this.api.disparadorListaProductos.subscribe((listaProductos) => {
+      this.listaProductos = listaProductos;
     });
-        //Inicializo la lista de categorias almacenadas en la base de datos
-        this.api.obtenerListaCategorias().subscribe((rta) => {
-          this.listaCategorias = rta;
-          console.log(this.listaCategorias);
+    //Inicializo la lista de categorias emitidas en el servicio
+    this.api.disparadorListaCategorias.subscribe(
+      (listaCategorias)=> this.listaCategorias = listaCategorias
+    )
 
-        });
+    //Inicializo la lista de marcas almacenadas emitidas en el servicio
+    this.api.disparadorListaMarcas.subscribe(
+      (listaMarcas) => this.listaMarcas = listaMarcas
+    );
 
-    //Inicializo la lista de categorias almacenadas en la base de datos
-    this.api.obtenerListaMarcas().subscribe((rta) => {
-      this.listaMarcas = rta;
-      console.log(this.listaMarcas);
-      this.api.disparadorListaMarcas.emit(rta);
-    },error=>this.api.alertaERROR(error.error));
-
-
-
-
+    if (this.listaProductos?.length != 0) {
+      //Inicializo la lista de productos almacenadas en la base de datos
+      this.api.obtenerListaProductos().subscribe((rta) => {
+        this.listaProductos = rta;
+        console.log(rta);
+      });
+    }
   }
 
   //Siguientes dos métodos utilizados para la seleccion de categorias y marcas
@@ -89,14 +74,6 @@ categoriaNavegar: Categoria | undefined;
     this.verMarcaElegida = this.MarcaElegida;
   }
 
-
-  //Métodos para navegar entre las diferentes categorías
-  irAtodos() {
-    this.api.obtenerListaProductos().subscribe((rta) => {
-      this.listaProductos = rta;
-    });
-  }
-
   //Metodos para la creacion , edición y eliminacion de un producto
 
   editarProducto() {
@@ -104,16 +81,18 @@ categoriaNavegar: Categoria | undefined;
     this.productoEditar.marca = this.verMarcaElegida;
     this.api
       .editarProducto(this.productoEditar.id, this.productoEditar)
-      .subscribe((data:any) => {
-       this.api.alertaOK(data);
-       setTimeout('document.location.reload()',2800);
-
-      },error=>this.api.alertaERROR(error.error));
+      .subscribe(
+        (data: any) => {
+          this.api.alertaOK(data);
+          setTimeout('document.location.reload()', 2800);
+        },
+        (error) => this.api.alertaERROR(error.error)
+      );
   }
   eliminarProducto(id: number) {
-    this.api.eliminarProducto(id).subscribe((data:any) => {
+    this.api.eliminarProducto(id).subscribe((data: any) => {
       this.api.alertaOK(data);
-      setTimeout('document.location.reload()',2800);
+      setTimeout('document.location.reload()', 2800);
     });
   }
   /*Metodo para darle valor al producto que se utiliza en el formulario para editar, los valores son los que tiene
@@ -130,20 +109,9 @@ categoriaNavegar: Categoria | undefined;
     this.productoEditar.categoria = productoAlmacenado.categoria;
   }
 
-
-  mostrarBotones(eleccion:string){
-this.api.disparadorDebtnCatMarc.emit(eleccion);
-this.api.disparadorListaProductos.subscribe(data=>{
-
-  this.listaProductos=data;
-
-});
-  }
-
   //Botones para la edicion y eliminacion de una categoría
 
   eliminarCategoria(id: number) {
-
     this.api.eliminarCategoria(id).subscribe((rta) => {
       alert(rta);
       location.reload();
@@ -151,51 +119,6 @@ this.api.disparadorListaProductos.subscribe(data=>{
   }
 
 
-editarCategoria() {
-  this.api
-    .editarCategoria(this.categoriaEditar.id, this.categoriaEditar)
-    .subscribe((data:any) => {
-      //alert(data);
-      this.api.alertaOK(data);
-      setTimeout('document.location.reload()',2800);
-    },error=>this.api.alertaERROR(error.error));
-
-}
-
-inicializarCategoria (categoriaAlmacenada:any){
-
-this.categoriaEditar.id = categoriaAlmacenada.id;
-  this.categoriaEditar.nombre = categoriaAlmacenada.nombre;
-this.categoriaEditar.productos = categoriaAlmacenada.productos;
-}
-
-inicializarMarca(marcaAlmacenada:Marca){
-this.marcaEditar.id= marcaAlmacenada.id;
-this.marcaEditar.nombre=marcaAlmacenada.nombre;
-this.marcaEditar.productos=marcaAlmacenada.productos;
-}
-
-irAcategoria(categoriaMarca: string) {
 
 
-
-  this.api.obtenerCategoria(categoriaMarca).subscribe((rta) => {
-    this.categoriaNavegar = rta;
-    this.listaProductos = this.categoriaNavegar.productos;
-  });
-
-
-}
-
-
-editarMarca(){
-  this.api
-    .editarMarca(this.marcaEditar.id, this.marcaEditar)
-    .subscribe((data:any) => {
-
-      this.api.alertaOK(data);
-      setTimeout('document.location.reload()',2800);
-    },error=>this.api.alertaERROR(error.error));
-
-}
 }

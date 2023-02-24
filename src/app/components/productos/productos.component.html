@@ -7,45 +7,19 @@
 
       <div class="row mt">
 
-       <app-creacion-botones></app-creacion-botones>
+        <app-creacion-botones></app-creacion-botones>
 
-        <div class="col text-center d-grid gap-2 mt-4 ">
-<a  type="button" class="btn btn-lg btn-outline-light" (click)="irAtodos()">Todos los productos
+        <app-boton-todos></app-boton-todos>
 
-</a> </div>
+        <app-boton-marcas></app-boton-marcas>
+
       </div>
 
+
+
       <div class="row mt-4">
-        <div class="col text-center d-grid gap-2 ">
-<a  type="button" class="btn btn-lg btn-outline-light"data-bs-toggle="modal" data-bs-target="#exampleModal">Todas las marcas
 
-</a> </div>
-      </div>
-      <div class="row mt-4">
-        <h2 class="text-center mt-2" clas>Categorías</h2>
-        <hr>
-        <div class="col text-center d-grid gap-2 mt-3" *ngFor="let categ of this.listaCategorias">
-
-
-            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-
-              <button type="button" (click)="irAcategoria(categ.nombre)" class="btn btn-lg btn-outline-light">{{categ.nombre}}</button>
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" type="button"
-                   data-bs-toggle="modal"
-                    data-bs-target="#formularioEditarCategoria" (click)="inicializarCategoria(categ)">Editar</a></li>
-
-                </ul>
-              </div>
-            </div>
-
-
-
-        </div>
+         <app-botones-categorias></app-botones-categorias>
 
 
 
@@ -74,18 +48,15 @@
 
               <div class="row">
                 <div class="col">
-                  <button class="botones btn btn-secondary">
+                  <button class="botonDetalles btn btn-secondary">
                     Ver detalles
                   </button>
                 </div>
 
                 <div class="col-3">
-                  <button class="botones"
-                  mat-raised
-                  matTooltipPosition ="below"
-                  matTooltip="Editar producto"
-                  (click)="inicializarProducto(product)" data-bs-toggle="modal"
-                    data-bs-target="#formularioEditar" data-bs-whatever="usuario.id">
+                  <button class="botones" mat-raised matTooltipPosition="below" matTooltip="Editar producto"
+                    (click)="inicializarProducto(product)" data-bs-toggle="modal" data-bs-target="#formularioEditar"
+                    data-bs-whatever="usuario.id">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                       class="bi bi-pencil" viewBox="0 0 16 16">
                       <path
@@ -96,11 +67,8 @@
                 </div>
                 <div class="col-3">
 
-                  <button class="botones"
-                  mat-raised
-                  matTooltipPosition ="below"
-                  matTooltip="Eliminar producto"
-                  (click)="eliminarProducto(product.id)">
+                  <button class="botones" mat-raised matTooltipPosition="below" matTooltip="Eliminar producto"
+                    (click)="eliminarProducto(product.id)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                       class="bi bi-trash3" viewBox="0 0 16 16">
                       <path
@@ -126,7 +94,7 @@
 
 
 
-<!--Modal para la edicion de un producto-->
+  <!--Modal para la edicion de un producto-->
   <div class="modal fade formularioProducto" id="formularioEditar" tabindex="-1" data-bs-whatever=""
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -139,21 +107,21 @@
 
 
 
-            <select class="form-select" aria-label="Default select example"
-            [(ngModel)]="opcionSeleccionado" (change)="capturar()">
+          <select class="form-select" aria-label="Default select example" [(ngModel)]="opcionSeleccionado"
+            (change)="capturar()">
             <option selected>Seleccione una categoría</option>
-              <option *ngFor="let categoria of listaCategorias">
-                {{categoria.nombre}}
-              </option>
-            </select>
+            <option *ngFor="let categoria of listaCategorias">
+              {{categoria.nombre}}
+            </option>
+          </select>
 
-            <select class="form-select mt-3" aria-label="Default select example"
-            [(ngModel)]="MarcaElegida" (change)="capturarMarca()">
+          <select class="form-select mt-3" aria-label="Default select example" [(ngModel)]="MarcaElegida"
+            (change)="capturarMarca()">
             <option selected>Seleccione una marca</option>
-              <option *ngFor="let marca of listaMarcas">
-                {{marca.nombre}}
-              </option>
-            </select>
+            <option *ngFor="let marca of listaMarcas">
+              {{marca.nombre}}
+            </option>
+          </select>
 
           <form (ngSubmit)="editarProducto()">
 
@@ -179,13 +147,13 @@
               <span class="input-group-text">$</span>
               <span class="input-group-text">{{productoEditar.precio}}</span>
               <input type="text" class="form-control" required [(ngModel)]="productoEditar.precio" name="precio"
-              placeholder="Valor de venta" aria-label="Dollar amount (with dot and two decimal places)">
+                placeholder="Valor de venta" aria-label="Dollar amount (with dot and two decimal places)">
             </div>
 
             <div class="mb-3">
 
-              <input type="" class="form-control" required [(ngModel)]="productoEditar.cantidad_en_stock"
-                name="stock" placeholder="Cantidad en stock" matInput>
+              <input type="" class="form-control" required [(ngModel)]="productoEditar.cantidad_en_stock" name="stock"
+                placeholder="Cantidad en stock" matInput>
             </div>
 
             <button class="btn botones btn-success">Guardar</button>
@@ -198,129 +166,3 @@
 
 
 
-
-<!--Modal para la edicion de una categoría-->
-<div class="modal fade formularioProducto" id="formularioEditarCategoria" tabindex="-1" data-bs-whatever=""
-aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h1 class="modal-title" id="exampleModalLabel">Editar categoría</h1>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-
-
-
-      <form (ngSubmit)="editarCategoria()" class="formularioProducto">
-
-        <div class="mb-3 mt-3">
-          ID
-          <input type="number" class="form-control" [disabled]=true value={{categoriaEditar.id}} required
-            [(ngModel)]="this.productoEditar.id" name="id" matInput>
-        </div>
-
-
-        <div class="mb-3">
-          <input type="text" class="form-control" required [(ngModel)]="this.categoriaEditar.nombre" name="nombre"
-            matInput placeholder="Nombre de categoria">
-        </div>
-
-
-
-        <button class="btn botones btn-success">Guardar</button>
-      </form>
-    </div>
-
-  </div>
-</div>
-</div>
-
-
-<!-- Modal para mapear marcas-->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title"  style="color: black;" id="exampleModalLabel">Marcas</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <table class="table " style="color: black;">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Marca</th>
-      <th scope="col">Productos</th>
-      <th scope="col">Editar</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let marca of listaMarcas">
-      <th scope="row">{{marca.id}}</th>
-      <td>{{marca.nombre}}</td>
-      <td>{{marca.productos.length}}</td>
-      <td>
-
-        <button class="botones"
-        mat-raised
-        matTooltipPosition ="below"
-        matTooltip="Editar producto"
-        data-bs-toggle="modal"
-        (click)="inicializarMarca(marca)"
-          data-bs-target="#formularioEditarMarca" data-bs-whatever="usuario.id">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-            class="bi bi-pencil" viewBox="0 0 16 16">
-            <path
-              d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-          </svg>
-
-        </button>
-
-      </td>
-    </tr>
-
-  </tbody>
-</table>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!--Modal para la edicion de una marca-->
-<div class="modal fade formularioProducto" id="formularioEditarMarca" tabindex="-1" data-bs-whatever=""
-aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h1 class="modal-title" id="exampleModalLabel">Editar marca</h1>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-
-
-
-      <form (ngSubmit)="editarMarca()" class="formularioProducto">
-
-        <div class="mb-3 mt-3">
-          ID
-          <input type="number" class="form-control" [disabled]=true value={{marcaEditar.id}} required
-            [(ngModel)]="this.productoEditar.id" name="id" matInput>
-        </div>
-
-
-        <div class="mb-3">
-          <input type="text" class="form-control" required [(ngModel)]="this.marcaEditar.nombre" name="nombre"
-            matInput placeholder="Nombre de categoria">
-        </div>
-
-
-
-        <button class="btn botones btn-success">Guardar</button>
-      </form>
-    </div>
-
-  </div>
-</div>
-</div>

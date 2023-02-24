@@ -11,10 +11,9 @@ import Swal from 'sweetalert2';
 })
 export class ApiService {
   constructor(private http: HttpClient) {}
-@Output() disparadorDebtnCatMarc : EventEmitter<string> = new EventEmitter();
-@Output() disparadorListaProductos : EventEmitter<Producto[]>= new EventEmitter();
-@Output() disparadorListaCategorias :EventEmitter<Categoria[]>=new EventEmitter();
+@Output() disparadorListaProductos :EventEmitter<Producto[]>=new EventEmitter();
 @Output() disparadorListaMarcas :EventEmitter<Marca[]>=new EventEmitter();
+@Output() disparadorListaCategorias :EventEmitter<Categoria[]>=new EventEmitter();
   hostService:string = 'https://backend-inventarioapp-service.onrender.com';
   pathProductos: string = this.hostService+'/api/productos';
   pathCategorias: string = this.hostService+'/api/categorias';

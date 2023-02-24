@@ -1,4 +1,3 @@
-
 import { ApiService } from './../../service/api.service';
 import { Component } from '@angular/core';
 import { Categoria } from 'src/entity/Categoria';
@@ -9,10 +8,10 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-creacion-botones',
   templateUrl: './creacion-botones.component.html',
-  styleUrls: ['./creacion-botones.component.css']
+  styleUrls: ['./creacion-botones.component.css'],
 })
 export class CreacionBotonesComponent {
-  constructor(private api:ApiService){}
+  constructor(private api: ApiService) {}
   //Listas para almacenar todas las categorias,marcas y productos del servidor
   listaCategorias: Categoria[] | undefined;
   listaMarcas: Marca[] | undefined;
@@ -24,17 +23,17 @@ export class CreacionBotonesComponent {
   //Siguientes dos variables utilizadas en el select de marca
   MarcaElegida: string = '0';
   verMarcaElegida: string = '';
- //Utilizada para crear un nuevo producto
- producto: Producto = {
-  id: 0,
-  nombre: '',
+  //Utilizada para crear un nuevo producto
+  producto: Producto = {
+    id: 0,
+    nombre: '',
 
-  imagen_url: '',
-  precio: 0,
-  cantidad_en_stock: 0,
-  marca: '',
-  categoria: '',
-};
+    imagen_url: '',
+    precio: 0,
+    cantidad_en_stock: 0,
+    marca: '',
+    categoria: '',
+  };
   //Utilizada para crear una nueva categoria
   categoriaCrear: Categoria = {
     id: 0,
@@ -42,59 +41,58 @@ export class CreacionBotonesComponent {
     productos: [],
   };
 
- //Utilizada para crear una nueva marca
- marcaCrear: Categoria = {
-  id: 0,
-  nombre: '',
-  productos: [],
-};
-ngOnInit(){
-    //Inicializo la lista de categorias almacenadas en la base de datos
-    this.api.obtenerListaCategorias().subscribe((rta) => {
-      this.listaCategorias = rta;
-      console.log(this.listaCategorias);
-    });
+  //Utilizada para crear una nueva marca
+  marcaCrear: Categoria = {
+    id: 0,
+    nombre: '',
+    productos: [],
+  };
+  ngOnInit() {
+    //Inicializo la lista de categorias emitidas en el service
+    this.api.disparadorListaMarcas.subscribe(
+      (listaMarcas) => (this.listaMarcas = listaMarcas)
+    );
 
-    //Inicializo la lista de categorias almacenadas en la base de datos
-    this.api.obtenerListaMarcas().subscribe((rta) => {
-      this.listaMarcas = rta;
-      console.log(this.listaMarcas);
-    });
-
-
-}
-crearMarca() {
-  this.api.crearMarca(this.marcaCrear).subscribe(data=>{
-    this.api.alertaOK(data);
-    setTimeout('document.location.reload()',2800);
-},error=>this.api.alertaWARNING(error.error))
-}
-
-
-crearCategoria() {
-  this.api.crearCategoria(this.categoriaCrear).subscribe(data=>{
-    this.api.alertaOK(data);
-    setTimeout('document.location.reload()',2800);
-},error=>this.api.alertaWARNING(error.error));
-}
-
-crearProducto() {
-
-  if(this.producto.nombre.length>29){
-    this.api.alertaWARNING('Intente con un nombre mas corto')
-  }else{
-    this.producto.categoria = this.verSeleccion;
-  this.producto.marca = this.verMarcaElegida;
-  this.api.crearProducto(this.producto).subscribe(data=>{
-
-    this.api.alertaOK(data);
-    setTimeout('document.location.reload()',2800);
+    //Inicializo la lista de categorias emitidas en el service
+    this.api.disparadorListaCategorias.subscribe(
+      (listaCategorias) => (this.listaCategorias = listaCategorias)
+    );
   }
-    ,error=>this.api.alertaWARNING(error.error));
+  crearMarca() {
+    this.api.crearMarca(this.marcaCrear).subscribe(
+      (data) => {
+        this.api.alertaOK(data);
+        setTimeout('document.location.reload()', 2800);
+      },
+      (error) => this.api.alertaWARNING(error.error)
+    );
   }
 
-}
+  crearCategoria() {
+    this.api.crearCategoria(this.categoriaCrear).subscribe(
+      (data) => {
+        this.api.alertaOK(data);
+        setTimeout('document.location.reload()', 2800);
+      },
+      (error) => this.api.alertaWARNING(error.error)
+    );
+  }
 
+  crearProducto() {
+    if (this.producto.nombre.length > 29) {
+      this.api.alertaWARNING('Intente con un nombre mas corto');
+    } else {
+      this.producto.categoria = this.verSeleccion;
+      this.producto.marca = this.verMarcaElegida;
+      this.api.crearProducto(this.producto).subscribe(
+        (data) => {
+          this.api.alertaOK(data);
+          setTimeout('document.location.reload()', 2800);
+        },
+        (error) => this.api.alertaWARNING(error.error)
+      );
+    }
+  }
 
   //Siguientes dos métodos utilizados para la seleccion de categorias y marcas
   capturar() {
@@ -106,5 +104,4 @@ crearProducto() {
     // Pasamos el valor seleccionado a la variable verSeleccion
     this.verMarcaElegida = this.MarcaElegida;
   }
-
 }

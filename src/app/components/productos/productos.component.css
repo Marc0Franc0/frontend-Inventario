@@ -19,6 +19,10 @@
   }
 
   .botones{
+    border: none;
+    background-color: transparent;
+ }
 
-     border: none;
-  }
+ .botonDetalles{
+
+ }

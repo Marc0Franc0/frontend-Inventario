@@ -14,6 +14,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { CreacionBotonesComponent } from './components/creacion-botones/creacion-botones.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { BotonesCategoriasComponent } from './components/botones-categorias/botones-categorias.component';
+import { BotonMarcasComponent } from './components/boton-marcas/boton-marcas.component';
+import { BotonTodosComponent } from './components/boton-todos/boton-todos.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { FooterComponent } from './components/footer/footer.component';
     HomeComponent,
     CreacionBotonesComponent,
     FooterComponent,
+    BotonesCategoriasComponent,
+    BotonMarcasComponent,
+    BotonTodosComponent,
 
 
   ],
