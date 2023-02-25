@@ -16,7 +16,7 @@
 
 
   <!--Modal para la creacion de un nuevo producto-->
-  <div class="modal fade formularioProducto" id="formularioProducto" tabindex="-1" aria-labelledby="exampleModalLabel"
+  <div class="modal fade formulario" id="formularioProducto" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -96,7 +96,7 @@
 
 
   <!--Modal para la creacion de una categoria-->
-  <div class="modal fade formularioProducto" id="formularioCategoria" tabindex="-1" aria-labelledby="exampleModalLabel"
+  <div class="modal fade formulario" id="formularioCategoria" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -131,7 +131,7 @@
 
 
 <!--Modal par a la creacion de una nueva marca-->
-<div class="modal fade formularioProducto" id="formularioMarca" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade formulario" id="formularioMarca" tabindex="-1" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -165,28 +165,3 @@
 </div>
 
 
-<script>
-
-
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  'use strict'
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
-
-</script>

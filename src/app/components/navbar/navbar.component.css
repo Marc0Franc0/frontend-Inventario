@@ -1,4 +1,7 @@
-.ingresar{
+nav{
+  background-color: rgba(105, 105, 105, 0.295);
+}
 
-  text-align: right;
+div a{
+  color: white;
 }
