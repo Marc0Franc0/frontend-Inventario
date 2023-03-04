@@ -14,7 +14,7 @@ export class ApiService {
 @Output() disparadorListaProductos :EventEmitter<Producto[]>=new EventEmitter();
 @Output() disparadorListaMarcas :EventEmitter<Marca[]>=new EventEmitter();
 @Output() disparadorListaCategorias :EventEmitter<Categoria[]>=new EventEmitter();
-  hostService:string = 'https://backend-inventarioapp-service.onrender.com';
+  hostService:string = 'https://backend-inventario-production.up.railway.app';
   pathProductos: string = this.hostService+'/api/productos';
   pathCategorias: string = this.hostService+'/api/categorias';
   pathMarcas: string = this.hostService+'/api/marcas';
